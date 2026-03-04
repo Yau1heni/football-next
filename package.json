@@ -6,19 +6,34 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write ."
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.21",
+    "classnames": "^2.5.1",
+    "dompurify": "^3.2.6",
+    "firebase": "^12.9.0",
+    "html-react-parser": "^5.2.6",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "sass": "^1.97.3",
+    "typesense": "^3.0.1"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "4",
+    "@tanstack/react-query-devtools": "^5.91.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "prettier": "^3.8.1",
     "typescript": "^5"
   }
 }
