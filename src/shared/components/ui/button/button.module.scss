@@ -1,0 +1,65 @@
+@use '@styles/variables' as *;
+
+.button {
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-xs;
+}
+
+.button_primary {
+  padding: 15px 19px;
+  background: $color-primary;
+  font-weight: 400;
+  font-size: $font-size-m;
+  line-height: 120%;
+  color: $color-on-primary;
+}
+
+.button_primary:not(.buttonLoading):hover {
+  background: $color-primary-hover;
+}
+
+.button_primary:not(.buttonLoading):active {
+  background: $color-primary-active;
+}
+
+.button_ghost {
+  padding: 8px 12px;
+  min-width: 40px;
+  min-height: 40px;
+  background: transparent;
+  color: $color-text;
+}
+
+.button:disabled {
+  background: $color-grey;
+  cursor: auto;
+  pointer-events: none;
+}
+
+.button_ghost:disabled {
+  background: transparent;
+  color: $color-grey;
+}
+
+.button_ghost:not(.buttonLoading):hover {
+  color: $color-primary-hover;
+}
+
+.button_ghost:not(.buttonLoading):active {
+  color: $color-primary-active;
+}
+
+.button .loader {
+  border-color: $color-light;
+  border-top-color: transparent;
+}
+
+.button_ghost .loader {
+  border-color: $color-dark;
+  border-top-color: transparent;
+}

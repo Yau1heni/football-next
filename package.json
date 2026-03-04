@@ -13,9 +13,9 @@
   "dependencies": {
     "@tanstack/react-query": "^5.90.21",
     "classnames": "^2.5.1",
-    "dompurify": "^3.2.6",
     "firebase": "^12.9.0",
     "html-react-parser": "^5.2.6",
+    "isomorphic-dompurify": "^3.0.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -23,7 +23,7 @@
     "typesense": "^3.0.1"
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "4",
+    "@tanstack/eslint-plugin-query": "^5.91.0",
     "@tanstack/react-query-devtools": "^5.91.3",
     "@types/node": "^20",
     "@types/react": "^19",
