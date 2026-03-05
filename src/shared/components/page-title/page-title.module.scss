@@ -6,6 +6,10 @@
   align-items: center;
   gap: $space-m;
 
+  .goBack {
+    flex-shrink: 0;
+  }
+
   .title {
     font-size: $font-size-title;
     line-height: 109%;

@@ -1,0 +1,60 @@
+@use '@styles/variables' as *;
+@use '@styles/mixins' as *;
+
+.clubDescription {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xxl;
+  align-items: flex-start;
+
+  @include tablet {
+    justify-content: space-between;
+  }
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.infoRow {
+  display: flex;
+  align-items: baseline;
+  gap: $space-xs;
+  flex-wrap: wrap;
+}
+
+.label {
+  color: $color-secondary;
+  min-width: 140px;
+  font-size: $font-size-s;
+}
+
+.value {
+  font-size: $font-size-s;
+}
+
+.websiteLink {
+  display: inline-flex;
+  align-items: center;
+  margin-top: $space-s;
+  color: $color-primary;
+  text-decoration: none;
+  font-size: $font-size-s;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $color-primary-hover;
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}

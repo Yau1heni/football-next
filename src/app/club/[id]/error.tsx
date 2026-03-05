@@ -3,12 +3,12 @@
 import { StateMessage } from '@components/state-message';
 import { Button } from '@components/ui/button';
 
-type ClubsErrorProps = {
+type ClubErrorProps = {
   error: Error & { digest?: string };
   reset: () => void;
 };
 
-const ClubsError = ({ error, reset }: ClubsErrorProps) => (
+const ClubError = ({ error, reset }: ClubErrorProps) => (
   <StateMessage
     variant="error"
     description={error.message}
@@ -20,4 +20,4 @@ const ClubsError = ({ error, reset }: ClubsErrorProps) => (
   />
 );
 
-export default ClubsError;
+export default ClubError;

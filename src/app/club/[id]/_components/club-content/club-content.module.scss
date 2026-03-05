@@ -1,0 +1,33 @@
+@use '@styles/variables' as *;
+@use '@styles/mixins' as *;
+
+.clubContent {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: $space-xl;
+
+    @include tablet {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .imageContainer {
+    flex-shrink: 0;
+  }
+
+  .logo {
+    flex-shrink: 0;
+  }
+
+  .favoriteButton {
+    align-self: flex-end;
+    min-width: 200px;
+  }
+}

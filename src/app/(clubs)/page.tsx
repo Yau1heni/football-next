@@ -2,9 +2,15 @@ import { clubsApi } from '@api/clubs-api';
 import { clientOptions } from '@configs/tanstack-query-config';
 import { getClubsQueryKeys } from '@queries/clubs/keys';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import type { Metadata } from 'next';
 
 import { ClubsPageContent } from './_components/clubs-page-content';
 import { getClubsQueryOptionsFromSearchParams } from './_components/get-clubs-query-options';
+
+export const metadata: Metadata = {
+  title: 'Клубы | #iLoveThisGame',
+  description: 'Список футбольных клубов',
+};
 
 type ClubsPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
