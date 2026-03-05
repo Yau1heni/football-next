@@ -6,6 +6,8 @@
 }
 
 .burgerMenu {
+  margin-left: auto;
+
   .burgerButton {
     display: none;
     flex-direction: column;
@@ -36,22 +38,6 @@
     height: 2px;
     background-color: $color-text;
     border-radius: 1px;
-    transform-origin: center;
-    transition:
-      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.2s ease;
-  }
-
-  .burgerButton[aria-expanded='true'] .line {
-    &:nth-child(1) {
-      transform: translateY(4px) rotate(45deg);
-    }
-    &:nth-child(2) {
-      opacity: 0;
-    }
-    &:nth-child(3) {
-      transform: translateY(-4px) rotate(-45deg);
-    }
   }
 }
 

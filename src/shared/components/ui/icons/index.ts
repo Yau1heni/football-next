@@ -10,6 +10,7 @@ export { EyeIcon } from './eye-icon';
 export { EyeOffIcon } from './eye-off-icon';
 export { GithubIcon } from './github-icon';
 export { GoogleIcon } from './google-icon';
+export { HeartIcon } from './heart-icon';
 export type { IconProps } from './icon';
 export { LikeIcon } from './like-icon';
 export { MoonIcon } from './moon-icon';

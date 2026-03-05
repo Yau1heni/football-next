@@ -12,7 +12,9 @@ export type CheckBoxProps = Omit<
   onChange: (checked: boolean) => void;
 };
 
-export const CheckBox: React.FC<CheckBoxProps> = ({ onChange, className, ...rest }) => {
+export const CheckBox: React.FC<CheckBoxProps> = (props) => {
+  const { onChange, className, ...rest } = props;
+
   const handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.currentTarget.checked);
   };

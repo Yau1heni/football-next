@@ -2,22 +2,24 @@
 
 import { START_PAGE } from '@constants/pagination';
 import { QUERY_PARAMS } from '@constants/query-params';
+import { useFavoritesContext } from '@contexts/favorites';
 import type { GetClubsTypesenseOptions } from '@shared-types/clubs.types';
 import { type FilterOption, getOptionByKey, getSelectedOptions } from '@utils/filter-options';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { CLUB_COUNTRIES_OPTIONS, getClubsSortOptions } from './clubs-filters';
+import { getClubsQueryOptionsFromSearchParams } from './get-clubs-query-options';
 
 export const useClubsFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { favoriteIds } = useFavoritesContext();
 
   const setSearchParams = (updater: (prev: URLSearchParams) => URLSearchParams) => {
     const next = updater(new URLSearchParams(searchParams.toString()));
     router.replace(`?${next.toString()}`);
   };
 
-  const searchTerm = searchParams.get(QUERY_PARAMS.SEARCH) ?? '';
   const applySearch = (value: string) => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
@@ -29,8 +31,6 @@ export const useClubsFilters = () => {
     });
   };
 
-  const rawPage = searchParams.get(QUERY_PARAMS.PAGE);
-  const page = rawPage ? Math.max(START_PAGE, parseInt(rawPage, 10)) : START_PAGE;
   const setPage = (pageNum: number) => {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev);
@@ -89,12 +89,14 @@ export const useClubsFilters = () => {
     });
   };
 
-  const queryOptions: GetClubsTypesenseOptions = {
-    page,
-    searchTerm,
-    ...(sort && { sort }),
-    ...(countries.length > 0 && { countries }),
-  };
+  const searchParamsRecord = Object.fromEntries(searchParams.entries()) as Record<
+    string,
+    string | string[] | undefined
+  >;
+  const queryOptions: GetClubsTypesenseOptions = getClubsQueryOptionsFromSearchParams(
+    searchParamsRecord,
+    favoriteIds
+  );
 
   return {
     queryOptions,

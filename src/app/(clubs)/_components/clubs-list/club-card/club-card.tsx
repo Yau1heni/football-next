@@ -3,7 +3,7 @@
 import { HtmlContent } from '@components/html-content';
 import { Button } from '@components/ui/button';
 import { Card } from '@components/ui/card';
-import { LikeIcon } from '@components/ui/icons/like-icon';
+import { HeartIcon } from '@components/ui/icons/heart-icon';
 import { Typography } from '@components/ui/typography';
 import { routes } from '@configs/routes';
 import { DEFAULT_CLUB_IMAGE } from '@constants/images';
@@ -21,10 +21,17 @@ type ClubCardProps = {
   isFavorite?: boolean;
   onToggleFavorite?: (clubId: string, isCurrentlyFavorite: boolean) => void;
   isToggleLoading?: boolean;
+  imageLoading?: 'eager' | 'lazy';
 };
 
 export const ClubCard = memo<ClubCardProps>((props) => {
-  const { club, isFavorite = false, onToggleFavorite, isToggleLoading = false } = props;
+  const {
+    club,
+    isFavorite = false,
+    onToggleFavorite,
+    isToggleLoading = false,
+    imageLoading,
+  } = props;
 
   const handleToggleClick = (e: MouseEvent) => {
     e.preventDefault();
@@ -40,14 +47,9 @@ export const ClubCard = memo<ClubCardProps>((props) => {
         imageWidth={CLUB_IMAGE_WIDTH}
         imageHeight={CLUB_IMAGE_HEIGHT}
         imageClassName={styles.cardImageCompact}
+        imageLoading={imageLoading}
         subtitle={club.country}
-        statusSlot={
-          isFavorite ? (
-            <span className={styles.favoriteBadge} aria-label={'В избранном'}>
-              <LikeIcon />
-            </span>
-          ) : undefined
-        }
+        statusSlot={isFavorite && <HeartIcon aria-label={'В избранном'} />}
         captionSlot={
           <Typography tag={'div'} maxLines={3}>
             <HtmlContent html={club.history} />
@@ -59,7 +61,9 @@ export const ClubCard = memo<ClubCardProps>((props) => {
             onClick={handleToggleClick}
             loading={isToggleLoading}
           >
-            {isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+            <Typography view={'button'} maxLines={1} color={'light'}>
+              {isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+            </Typography>
           </Button>
         }
       />

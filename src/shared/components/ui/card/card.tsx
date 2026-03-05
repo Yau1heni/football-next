@@ -23,6 +23,8 @@ export type CardProps = {
   imageHeight?: number;
   /** Дополнительный classname для контейнера изображения */
   imageClassName?: string;
+  /** Загрузка: eager для above-the-fold (LCP), иначе lazy */
+  imageLoading?: 'eager' | 'lazy';
   /** Слот над заголовком */
   captionSlot?: ReactNode;
   /** Содержимое карточки (футер/боковая часть), может быть пустым */
@@ -42,6 +44,7 @@ export const Card: FC<CardProps> = (props) => {
     imageWidth = DEFAULT_IMAGE_WIDTH,
     imageHeight = DEFAULT_IMAGE_HEIGHT,
     imageClassName,
+    imageLoading,
     title,
     subtitle,
     actionSlot,
@@ -62,7 +65,7 @@ export const Card: FC<CardProps> = (props) => {
           height={imageHeight}
           src={image}
           alt={'card image'}
-          loading={'lazy'}
+          loading={imageLoading ?? 'lazy'}
         />
       </div>
       <div className={styles.cardBody}>

@@ -11,7 +11,9 @@ type AuthContainerProps = {
   titleId?: string;
 } & PropsWithChildren;
 
-export const AuthContainer: FC<AuthContainerProps> = ({ children, title, titleId }) => {
+export const AuthContainer: FC<AuthContainerProps> = (props) => {
+  const { children, title, titleId } = props;
+
   return (
     <section className={styles.authContainer} aria-labelledby={titleId}>
       <Typography id={titleId} tag="h1" className={styles.title} color="accent" view="p-20">

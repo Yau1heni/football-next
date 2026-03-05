@@ -18,19 +18,21 @@ export type DropdownProps = {
   className?: string;
   options: DropdownOption[];
   value: DropdownOption | null;
-  onChange: (value: DropdownOption | null) => void;
+  onChangeAction: (value: DropdownOption | null) => void;
   disabled?: boolean;
   placeholder?: string;
 };
 
-export const Dropdown: FC<DropdownProps> = ({
-  options,
-  value,
-  onChange,
-  className,
-  disabled,
-  placeholder = 'Выберите значение',
-}) => {
+export const Dropdown: FC<DropdownProps> = (props) => {
+  const {
+    options,
+    value,
+    onChangeAction,
+    className,
+    disabled,
+    placeholder = 'Выберите значение',
+  } = props;
+
   const {
     open,
     setOpen,
@@ -38,7 +40,7 @@ export const Dropdown: FC<DropdownProps> = ({
     containerRef,
     selectedKey,
     options: optionsList,
-  } = useDropdown(options, value, onChange);
+  } = useDropdown(options, value, onChangeAction);
 
   const handleInputFocus = () => setOpen(true);
 

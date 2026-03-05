@@ -63,7 +63,7 @@ export const BurgerMenu: FC<BurgerMenuProps> = ({ children }) => {
           className={styles.burgerButton}
           onClick={toggle}
           aria-expanded={isOpen}
-          aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
+          aria-label="Открыть меню"
         >
           <span className={styles.line} />
           <span className={styles.line} />

@@ -16,7 +16,8 @@ type PaginationProps = {
   onChange?: (value: number) => void;
 };
 
-export const Pagination: FC<PaginationProps> = ({ total = 0, page = START_PAGE, onChange }) => {
+export const Pagination: FC<PaginationProps> = (props) => {
+  const { total = 0, page = START_PAGE, onChange } = props;
   const pages = usePagination({ total, page });
 
   const handlePrev = () => {

@@ -18,13 +18,9 @@ export type StateMessageProps = {
   className?: string;
 };
 
-export const StateMessage: FC<StateMessageProps> = ({
-  variant,
-  title,
-  description,
-  action,
-  className,
-}) => {
+export const StateMessage: FC<StateMessageProps> = (props) => {
+  const { variant, title, description, action, className } = props;
+
   const defaults = DEFAULT_TEXTS[variant];
   const finalTitle = title ?? defaults.title;
   const finalDescription = description ?? defaults.description;

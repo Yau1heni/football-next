@@ -6,11 +6,11 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: $space-xl * 2 $space-m;
+  padding: $space-xl;
   gap: $space-m;
 
   &.error .icon {
-    color: #c62828;
+    color: $color-error;
   }
 
   .title {

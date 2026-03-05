@@ -38,13 +38,13 @@ export const ClubsFilters = () => {
 
   return (
     <div className={styles.clubsFilters}>
-      <InputSearch searchTerm={searchDraft} onChange={setSearchDraft} action={onSearch} />
+      <InputSearch searchTerm={searchDraft} onChangeAction={setSearchDraft} action={onSearch} />
       <div className={styles.filtersRow}>
         <Dropdown
           className={styles.dropdown}
           options={getClubsSortOptions}
           value={sortOption}
-          onChange={setSortOption}
+          onChangeAction={setSortOption}
           placeholder={'Сортировка'}
         />
         <MultiDropdown

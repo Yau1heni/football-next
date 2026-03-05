@@ -1,7 +1,7 @@
 'use client';
 
 import { StateMessage } from '@components/state-message';
-import { Club } from '@shared-types/clubs.types';
+import type { Club } from '@shared-types/clubs.types';
 
 import { ClubCard } from './club-card';
 import styles from './clubs-list.module.scss';
@@ -11,9 +11,21 @@ type ClubsListProps = {
   clubs: Club[];
   isLoading: boolean;
   isError: boolean;
+  favoriteIds?: string[];
+  onToggleFavoriteAction?: (clubId: string, isCurrentlyFavorite: boolean) => void;
+  loadingClubId?: string | null;
 };
 
-export const ClubsList = ({ clubs, isError, isLoading }: ClubsListProps) => {
+export const ClubsList = (props: ClubsListProps) => {
+  const {
+    clubs,
+    isError,
+    isLoading,
+    favoriteIds = [],
+    onToggleFavoriteAction,
+    loadingClubId = null,
+  } = props;
+
   if (isError) {
     return <StateMessage variant={'error'} title={'Ошибка загрузки клубов'} />;
   }
@@ -29,8 +41,15 @@ export const ClubsList = ({ clubs, isError, isLoading }: ClubsListProps) => {
   return (
     <div className={styles.clubsList}>
       <div className={styles.list}>
-        {clubs.map((club) => (
-          <ClubCard key={club.id} club={club} />
+        {clubs.map((club, index) => (
+          <ClubCard
+            key={club.id}
+            club={club}
+            isFavorite={favoriteIds.includes(club.id)}
+            onToggleFavorite={onToggleFavoriteAction}
+            isToggleLoading={loadingClubId === club.id}
+            imageLoading={index === 0 ? 'eager' : undefined}
+          />
         ))}
       </div>
     </div>

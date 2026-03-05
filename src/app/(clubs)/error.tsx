@@ -2,21 +2,17 @@
 
 import { StateMessage } from '@components/state-message';
 import { Button } from '@components/ui/button';
-import { useEffect } from 'react';
 
 type ErrorProps = {
   error: Error & { digest?: string };
   reset: () => void;
 };
 
-export default function ClubsError({ error, reset }: ErrorProps) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
+const ClubsError = ({ error, reset }: ErrorProps) => {
   return (
     <StateMessage
       variant="error"
+      description={error.message}
       action={
         <Button onClick={reset} variant="primary">
           Попробовать снова
@@ -24,4 +20,6 @@ export default function ClubsError({ error, reset }: ErrorProps) {
       }
     />
   );
-}
+};
+
+export default ClubsError;

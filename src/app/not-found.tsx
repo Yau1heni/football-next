@@ -4,7 +4,7 @@ import { routes } from '@configs/routes';
 import cn from 'classnames';
 import Link from 'next/link';
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <StateMessage
       variant="empty"
@@ -17,4 +17,6 @@ export default function NotFound() {
       }
     />
   );
-}
+};
+
+export default NotFound;

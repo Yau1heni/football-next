@@ -20,15 +20,17 @@ export type SkeletonProps = HTMLAttributes<HTMLDivElement> & {
   className?: string;
 };
 
-export const Skeleton: FC<SkeletonProps> = ({
-  variant = 'rectangular',
-  width,
-  height,
-  animation = 'pulse',
-  className,
-  style,
-  ...rest
-}) => {
+export const Skeleton: FC<SkeletonProps> = (props) => {
+  const {
+    variant = 'rectangular',
+    width,
+    height,
+    animation = 'pulse',
+    className,
+    style,
+    ...rest
+  } = props;
+
   const resolvedStyle: CSSProperties = {
     ...style,
     ...(width != null && { width: typeof width === 'number' ? `${width}px` : width }),

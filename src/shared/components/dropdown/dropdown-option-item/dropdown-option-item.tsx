@@ -10,11 +10,9 @@ export type DropdownOptionItemProps = {
   onSelect: (option: DropdownOption) => void;
 };
 
-export const DropdownOptionItem: FC<DropdownOptionItemProps> = ({
-  option,
-  isSelected,
-  onSelect,
-}) => {
+export const DropdownOptionItem: FC<DropdownOptionItemProps> = (props) => {
+  const { option, isSelected, onSelect } = props;
+
   const handleMouseDown = (e: MouseEvent) => {
     e.preventDefault();
     onSelect(option);

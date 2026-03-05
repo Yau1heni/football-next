@@ -8,13 +8,17 @@ import styles from './input-search.module.scss';
 
 type InputSearchProps = {
   searchTerm: string;
-  onChange: (value: string) => void;
+  onChangeAction: (value: string) => void;
   action: () => void;
 };
 
-export const InputSearch: FC<InputSearchProps> = ({ searchTerm, onChange, action }) => (
-  <div className={styles.inputSearch}>
-    <Input value={searchTerm} onChange={onChange} />
-    <Button onClick={action}>Найти</Button>
-  </div>
-);
+export const InputSearch: FC<InputSearchProps> = (props) => {
+  const { searchTerm, onChangeAction, action } = props;
+
+  return (
+    <div className={styles.inputSearch}>
+      <Input value={searchTerm} onChange={onChangeAction} />
+      <Button onClick={action}>Найти</Button>
+    </div>
+  );
+};
