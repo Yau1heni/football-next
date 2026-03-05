@@ -25,7 +25,12 @@ const getStoredTheme = (): Theme => {
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>(() => getStoredTheme());
+  const [theme, setTheme] = useState<Theme>(THEME.LIGHT);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTheme(getStoredTheme());
+  }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);

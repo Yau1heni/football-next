@@ -48,7 +48,7 @@ export const ClubsList = (props: ClubsListProps) => {
             isFavorite={favoriteIds.includes(club.id)}
             onToggleFavorite={onToggleFavoriteAction}
             isToggleLoading={loadingClubId === club.id}
-            imageLoading={index === 0 ? 'eager' : undefined}
+            imageLoading={index === 0 ? 'eager' : 'lazy'}
           />
         ))}
       </div>

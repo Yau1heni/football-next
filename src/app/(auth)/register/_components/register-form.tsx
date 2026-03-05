@@ -10,7 +10,7 @@ export const RegisterForm = () => {
   return (
     <AuthForms
       config={registerFormConfig}
-      onSubmit={(values) =>
+      onSubmitAction={(values) =>
         registerWithEmail.mutate({
           displayName: values.displayName,
           email: values.email,

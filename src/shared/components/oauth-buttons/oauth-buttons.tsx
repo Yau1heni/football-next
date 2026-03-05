@@ -8,13 +8,13 @@ import type { FC } from 'react';
 import styles from './oauth-buttons.module.scss';
 
 export type OAuthButtonsProps = {
-  onGoogleClick: () => void | Promise<void>;
-  onGithubClick: () => void | Promise<void>;
+  onGoogleClickAction: () => void | Promise<void>;
+  onGithubClickAction: () => void | Promise<void>;
   disabled?: boolean;
 };
 
 export const OAuthButtons: FC<OAuthButtonsProps> = (props) => {
-  const { onGoogleClick, onGithubClick, disabled = false } = props;
+  const { onGoogleClickAction, onGithubClickAction, disabled = false } = props;
 
   return (
     <div className={styles.oAuthButtons} role="group" aria-label="Вход через соцсети">
@@ -22,7 +22,7 @@ export const OAuthButtons: FC<OAuthButtonsProps> = (props) => {
       <div className={styles.buttons}>
         <Button
           variant="ghost"
-          onClick={onGoogleClick}
+          onClick={onGoogleClickAction}
           disabled={disabled}
           aria-label="Войти через Google"
         >
@@ -33,7 +33,7 @@ export const OAuthButtons: FC<OAuthButtonsProps> = (props) => {
         </Button>
         <Button
           variant="ghost"
-          onClick={onGithubClick}
+          onClick={onGithubClickAction}
           disabled={disabled}
           aria-label="Войти через GitHub"
         >

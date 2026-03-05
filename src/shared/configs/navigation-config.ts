@@ -1,3 +1,6 @@
 import { routes } from '@configs/routes';
 
-export const navigationConfig = [{ title: 'Клубы', to: routes.main.mask }] as const;
+export const navigationConfig = [
+  { title: 'Клубы', to: routes.main.mask },
+  { title: 'Статьи', to: routes.articles.mask },
+] as const;

@@ -15,4 +15,12 @@ export const routes = {
     mask: '/register',
     create: () => '/register',
   },
+  articles: {
+    mask: '/articles',
+    create: () => '/articles',
+  },
+  article: {
+    mask: '/article/[id]',
+    create: (id: string) => `/article/${id}`,
+  },
 } as const;

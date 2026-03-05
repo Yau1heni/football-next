@@ -65,7 +65,7 @@ export const Card: FC<CardProps> = (props) => {
           height={imageHeight}
           src={image}
           alt={'card image'}
-          loading={imageLoading ?? 'lazy'}
+          loading={imageLoading}
         />
       </div>
       <div className={styles.cardBody}>

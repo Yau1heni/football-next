@@ -13,22 +13,22 @@ import { usePagination } from './use-pagination';
 type PaginationProps = {
   total?: number;
   page?: number;
-  onChange?: (value: number) => void;
+  onChangeAction?: (value: number) => void;
 };
 
 export const Pagination: FC<PaginationProps> = (props) => {
-  const { total = 0, page = START_PAGE, onChange } = props;
+  const { total = 0, page = START_PAGE, onChangeAction } = props;
   const pages = usePagination({ total, page });
 
   const handlePrev = () => {
-    if (page > START_PAGE) onChange?.(page - 1);
+    if (page > START_PAGE) onChangeAction?.(page - 1);
   };
 
   const handleNext = () => {
-    if (page < pages.length) onChange?.(page + 1);
+    if (page < pages.length) onChangeAction?.(page + 1);
   };
 
-  const onItemClick = (p: number | string) => typeof p === 'number' && onChange?.(p);
+  const onItemClick = (p: number | string) => typeof p === 'number' && onChangeAction?.(p);
 
   return (
     <div className={styles.pagination}>

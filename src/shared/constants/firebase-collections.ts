@@ -23,3 +23,15 @@ export const FAVORITES_COLLECTIONS = {
     ADDED_AT: 'addedAt',
   },
 } as const;
+
+export const ARTICLES_COLLECTIONS = {
+  PATH: 'articles',
+  FIELD_PATH: {
+    TIMESTAMP: 'timestamp',
+    PARENT_COMMENT_ID: 'parentCommentId',
+  },
+  SUBCOLLECTIONS: {
+    REACTIONS: 'reactions',
+    COMMENTS: 'comments',
+  },
+} as const;

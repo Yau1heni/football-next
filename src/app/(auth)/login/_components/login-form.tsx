@@ -10,7 +10,7 @@ export const LoginForm = () => {
   return (
     <AuthForms
       config={loginFormConfig}
-      onSubmit={(values) =>
+      onSubmitAction={(values) =>
         loginWithEmail.mutate({
           email: values.email,
           password: values.password,

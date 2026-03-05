@@ -34,7 +34,7 @@ export const ClubsPageContent = () => {
         loadingClubId={loadingClubId}
       />
       {data != null && data.found > PAGINATION_LIMIT && (
-        <Pagination page={queryOptions.page} total={data.found} onChange={setPage} />
+        <Pagination page={queryOptions.page} total={data.found} onChangeAction={setPage} />
       )}
     </>
   );

@@ -68,8 +68,8 @@ export const AuthForms: FC<AuthFormsProps> = (props) => {
         </Button>
       </form>
       <OAuthButtons
-        onGoogleClick={() => authWithGoogle.mutate()}
-        onGithubClick={() => authWithGithub.mutate()}
+        onGoogleClickAction={authWithGoogle.mutate}
+        onGithubClickAction={authWithGithub.mutate}
         disabled={isLoading}
       />
       {isError && (
