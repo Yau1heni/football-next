@@ -1,0 +1,118 @@
+'use client';
+
+import { ContentContainer } from '@components/content-container';
+import { HtmlContent } from '@components/html-content';
+import { ReactionButtons } from '@components/reaction-buttons';
+import { StateMessage } from '@components/state-message';
+import { Typography } from '@components/ui/typography';
+import { DEFAULT_ARTICLE_IMAGE } from '@constants/images';
+import { RU_VIEW } from '@constants/plural-forms';
+import { useAuthContext } from '@contexts/auth';
+import {
+  useArticleQuery,
+  useArticleUserReactionQuery,
+  useSetArticleReactionMutation,
+} from '@queries/article';
+import { REACTION } from '@shared-types/articles.types';
+import { getCommentsCountLabel } from '@utils/article-comments';
+import { formatTimestamp } from '@utils/format-timestamp';
+import { plural } from '@utils/plural';
+import Image from 'next/image';
+import type { FC } from 'react';
+
+import styles from './article-detail.module.scss';
+import { ArticleDetailSkeleton } from './article-detail-skeleton';
+import { ArticleDetailTags } from './article-detail-tags';
+
+type ArticleDetailProps = {
+  articleId: string | undefined;
+};
+
+export const ArticleDetail: FC<ArticleDetailProps> = ({ articleId }) => {
+  const id = articleId ?? '';
+  const { data: article, isError, isLoading } = useArticleQuery(id);
+  const { user } = useAuthContext();
+  const userId = user?.uid ?? '';
+  const { data: userReaction } = useArticleUserReactionQuery(id, userId);
+  const setReaction = useSetArticleReactionMutation();
+
+  if (isError) {
+    return <StateMessage variant={'error'} title={'Ошибка загрузки статьи'} />;
+  }
+
+  if (isLoading) {
+    return <ArticleDetailSkeleton />;
+  }
+
+  if (!article) {
+    return <StateMessage variant={'empty'} title={'Статья не найдена'} />;
+  }
+
+  const timestamp = formatTimestamp(article.timestamp);
+
+  const handleLike = () => {
+    if (!userId) return;
+    setReaction.mutate({
+      articleId: article.id,
+      userId,
+      type: REACTION.LIKE,
+      previousReactionType: userReaction?.type ?? null,
+    });
+  };
+
+  const handleDislike = () => {
+    if (!userId) return;
+    setReaction.mutate({
+      articleId: article.id,
+      userId,
+      type: REACTION.DISLIKE,
+      previousReactionType: userReaction?.type ?? null,
+    });
+  };
+
+  const coverSrc = article.coverImageUrl || DEFAULT_ARTICLE_IMAGE;
+
+  return (
+    <ContentContainer title={article.title}>
+      <article className={styles.articleDetail}>
+        {article.tags.length > 0 && <ArticleDetailTags tags={article.tags} />}
+
+        <div className={styles.articleCover}>
+          <Image
+            src={coverSrc}
+            alt={article.title}
+            fill
+            sizes={'(max-width: 720px) 100vw, 720px'}
+          />
+        </div>
+
+        <div className={styles.articleMeta}>
+          {timestamp && (
+            <Typography tag={'span'} color={'secondary'}>
+              {timestamp}
+            </Typography>
+          )}
+          <Typography tag={'span'} color={'secondary'}>
+            {article.category} · {article.viewsCount} {plural(article.viewsCount, RU_VIEW)} ·{' '}
+            {article.commentsCount} {getCommentsCountLabel(article.commentsCount)}
+          </Typography>
+        </div>
+
+        <div className={styles.articleContent}>
+          <HtmlContent html={article.content} />
+        </div>
+
+        <div className={styles.reactionSection}>
+          <ReactionButtons
+            likesCount={article.likesCount}
+            dislikesCount={article.dislikesCount}
+            userReaction={userReaction?.type ?? null}
+            onLikeAction={handleLike}
+            onDislikeAction={handleDislike}
+            disabled={!userId || setReaction.isPending}
+          />
+        </div>
+      </article>
+    </ContentContainer>
+  );
+};
