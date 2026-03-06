@@ -1,27 +1,27 @@
 'use client';
 
 import { useArticleCommentsData, useArticleCommentsMutation } from '@contexts/article-comments';
-import { useInfiniteScroll } from '@hooks/use-infinite-scroll';
 import type { ReactionType } from '@shared-types/articles.types';
 import type { FC } from 'react';
-import { memo, useCallback, useRef, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 import { ArticleCommentForm } from '../article-comment-form';
-import { ArticleCommentSkeleton } from '../article-comment-item';
+import { VirtualArticleCommentRow } from '../virtual-article-comment-row';
 import styles from './article-comments-list.module.scss';
-import { ArticleCommentsRows } from './article-comments-rows';
+import { useArticleCommentsListVirtual } from './use-article-comments-list-virtual';
 
 export const ArticleCommentsList: FC = memo(() => {
-  const sentinelRef = useRef<HTMLDivElement>(null);
   const { addCommentMutate, removeCommentMutate, setCommentReactionMutate } =
     useArticleCommentsData();
-  const { addComment, hasNextPage, fetchNextPage, isFetchingNextPage } =
-    useArticleCommentsMutation();
-
-  useInfiniteScroll(sentinelRef, {
-    onIntersect: () => fetchNextPage(),
-    enabled: Boolean(hasNextPage && !isFetchingNextPage),
-  });
+  const { addComment } = useArticleCommentsMutation();
+  const {
+    displayList,
+    rowVirtualizer,
+    listAnchorRef,
+    sentinelRef,
+    scrollMargin,
+    hasNextPage,
+  } = useArticleCommentsListVirtual();
 
   const [replyingToCommentId, setReplyingToCommentId] = useState<string | null>(null);
 
@@ -69,15 +69,30 @@ export const ArticleCommentsList: FC = memo(() => {
         placeholder={'Введите комментарий...'}
         loading={addComment.isPending}
       />
-      <ArticleCommentsRows
-        replyingToCommentId={replyingToCommentId}
-        onReplyAction={handleReply}
-        onDeleteAction={handleDelete}
-        onCancelReplyAction={handleCancelReply}
-        onSubmitReplyAction={handleSubmitReply}
-        onReactionAction={handleReaction}
-      />
-      {isFetchingNextPage && <ArticleCommentSkeleton depth={0} />}
+      <div
+        ref={listAnchorRef}
+        style={{
+          height: rowVirtualizer.getTotalSize(),
+          width: '100%',
+          position: 'relative',
+        }}
+      >
+        {rowVirtualizer.getVirtualItems().map((virtualRow) => (
+          <VirtualArticleCommentRow
+            key={virtualRow.key}
+            virtualRow={virtualRow}
+            displayList={displayList}
+            measureElementAction={rowVirtualizer.measureElement}
+            scrollMargin={scrollMargin}
+            replyingToCommentId={replyingToCommentId}
+            onReplyAction={handleReply}
+            onDeleteAction={handleDelete}
+            onCancelReplyAction={handleCancelReply}
+            onSubmitReplyAction={handleSubmitReply}
+            onReactionAction={handleReaction}
+          />
+        ))}
+      </div>
       {hasNextPage && <div ref={sentinelRef} aria-hidden />}
     </div>
   );

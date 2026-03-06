@@ -10,7 +10,9 @@ export type UseInfiniteScrollOptions = {
   onIntersect: () => void;
   /** Наблюдать только когда true (например hasNextPage && !isFetchingNextPage) */
   enabled?: boolean;
-  /** Отступ от viewport в px, с которого считать элемент «видимым» */
+  /** Контейнер скролла (root для IntersectionObserver). Не задан — viewport */
+  scrollRootRef?: RefObject<HTMLElement | null>;
+  /** Отступ от root/viewport в px, с которого считать элемент «видимым» */
   rootMargin?: number;
   /** Порог пересечения 0–1 */
   threshold?: number;
@@ -30,6 +32,7 @@ export const useInfiniteScroll = (
   const {
     onIntersect,
     enabled = true,
+    scrollRootRef,
     rootMargin = DEFAULT_ROOT_MARGIN_PX,
     threshold = DEFAULT_THRESHOLD,
   } = options;
@@ -44,6 +47,8 @@ export const useInfiniteScroll = (
     const el = sentinelRef.current;
     if (!enabled || !el) return;
 
+    const root = scrollRootRef?.current ?? null;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
@@ -52,6 +57,7 @@ export const useInfiniteScroll = (
         }
       },
       {
+        root,
         rootMargin: `${rootMargin}px`,
         threshold,
       }
@@ -60,5 +66,5 @@ export const useInfiniteScroll = (
     observer.observe(el);
 
     return () => observer.disconnect();
-  }, [enabled, rootMargin, threshold, sentinelRef]);
+  }, [enabled, rootMargin, scrollRootRef, threshold, sentinelRef]);
 };
