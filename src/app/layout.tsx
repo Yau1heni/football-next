@@ -1,5 +1,7 @@
 import '@styles/styles.scss';
+import 'react-toastify/ReactToastify.css';
 
+import { AppToasts } from '@components/app-toasts';
 import { Container } from '@components/container';
 import { Header } from '@components/header';
 import { APP_ROOT_ID } from '@constants/app';
@@ -38,6 +40,7 @@ const RootLayout = ({
                 <Header />
                 <Container>{children}</Container>
               </div>
+              <AppToasts />
             </ThemeProvider>
           </FavoritesProvider>
         </AuthProvider>

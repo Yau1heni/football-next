@@ -5,6 +5,7 @@ import type { InfiniteData } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { calculateReactionDelta } from '@utils/calculate-reaction-delta';
 import { Timestamp } from 'firebase/firestore';
+import { toast } from 'react-toastify/unstyled';
 
 import { getArticleCommentsQueryKeys, getArticleCommentsReactionQueryKeys } from './keys';
 
@@ -105,6 +106,7 @@ export const useAddArticleCommentMutation = () => {
     },
 
     onError: (_err, variables, context) => {
+      toast.error('Не удалось добавить комментарий');
       if (context?.previousData != null) {
         queryClient.setQueryData(
           getArticleCommentsQueryKeys(variables.articleId),
@@ -193,6 +195,7 @@ export const useRemoveArticleCommentMutation = () => {
     },
 
     onError: (_err, variables, context) => {
+      toast.error('Не удалось удалить комментарий');
       if (context?.previousData != null) {
         queryClient.setQueryData(
           getArticleCommentsQueryKeys(variables.articleId),
@@ -268,6 +271,7 @@ export const useSetCommentReactionMutation = () => {
     },
 
     onError: (_err, variables, context) => {
+      toast.error('Не удалось поставить реакцию на комментарий');
       if (context?.previousCommentsData != null) {
         queryClient.setQueryData(
           getArticleCommentsQueryKeys(variables.articleId),

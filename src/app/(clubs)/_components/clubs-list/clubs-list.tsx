@@ -12,7 +12,11 @@ type ClubsListProps = {
   isLoading: boolean;
   isError: boolean;
   favoriteIds?: string[];
-  onToggleFavoriteAction?: (clubId: string, isCurrentlyFavorite: boolean) => void;
+  onToggleFavoriteAction?: (
+    clubId: string,
+    isCurrentlyFavorite: boolean,
+    clubName?: string
+  ) => void;
   loadingClubId?: string | null;
 };
 

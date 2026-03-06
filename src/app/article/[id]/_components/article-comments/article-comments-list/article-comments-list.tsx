@@ -14,14 +14,8 @@ export const ArticleCommentsList: FC = memo(() => {
   const { addCommentMutate, removeCommentMutate, setCommentReactionMutate } =
     useArticleCommentsData();
   const { addComment } = useArticleCommentsMutation();
-  const {
-    displayList,
-    rowVirtualizer,
-    listAnchorRef,
-    sentinelRef,
-    scrollMargin,
-    hasNextPage,
-  } = useArticleCommentsListVirtual();
+  const { displayList, rowVirtualizer, listAnchorRef, sentinelRef, scrollMargin, hasNextPage } =
+    useArticleCommentsListVirtual();
 
   const [replyingToCommentId, setReplyingToCommentId] = useState<string | null>(null);
 

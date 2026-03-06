@@ -17,7 +17,8 @@ export const ClubsPageContent = () => {
   const { favoriteIds, isFavoritesLoading, toggleFavorite, loadingClubId } = useFavoritesContext();
 
   const handleToggleFavorite = useCallback(
-    (clubId: string, isCurrentlyFavorite: boolean) => toggleFavorite(clubId, isCurrentlyFavorite),
+    (clubId: string, isCurrentlyFavorite: boolean, clubName?: string) =>
+      toggleFavorite(clubId, isCurrentlyFavorite, clubName),
     [toggleFavorite]
   );
 

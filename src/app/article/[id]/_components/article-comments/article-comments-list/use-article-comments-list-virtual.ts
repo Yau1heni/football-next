@@ -37,8 +37,7 @@ export const useArticleCommentsListVirtual = () => {
     estimateSize: () => ROW_ESTIMATE_SIZE,
     overscan: 6,
     scrollMargin,
-    getItemKey: (index) =>
-      index < displayList.length ? displayList[index].comment.id : 'loading',
+    getItemKey: (index) => (index < displayList.length ? displayList[index].comment.id : 'loading'),
   });
 
   return {

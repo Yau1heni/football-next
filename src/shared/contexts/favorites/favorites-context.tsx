@@ -8,7 +8,7 @@ import { createContext, useContext } from 'react';
 export type FavoritesContextValue = {
   favoriteIds: string[];
   isFavoritesLoading: boolean;
-  toggleFavorite: (clubId: string, isCurrentlyFavorite: boolean) => void;
+  toggleFavorite: (clubId: string, isCurrentlyFavorite: boolean, clubName?: string) => void;
   isPending: boolean;
   loadingClubId: string | null;
 };
@@ -22,9 +22,9 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const { mutate, isPending, variables } = useFavoritesMutation();
 
   const toggleFavorite = useCallback(
-    (clubId: string, isCurrentlyFavorite: boolean) => {
+    (clubId: string, isCurrentlyFavorite: boolean, clubName?: string) => {
       if (!userId) return;
-      mutate({ userId, clubId, isCurrentlyFavorite });
+      mutate({ userId, clubId, isCurrentlyFavorite, clubName });
     },
     [userId, mutate]
   );

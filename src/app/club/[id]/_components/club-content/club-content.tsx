@@ -57,7 +57,7 @@ export const ClubContent: FC = () => {
         disabled={isPending}
         loading={isToggleLoading}
         className={styles.favoriteButton}
-        onClick={() => toggleFavorite(club.id, isFavorite)}
+        onClick={() => toggleFavorite(club.id, isFavorite, club.name ?? undefined)}
       >
         {isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
       </Button>

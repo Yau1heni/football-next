@@ -19,7 +19,7 @@ const CLUB_IMAGE_HEIGHT = 240;
 type ClubCardProps = {
   club: Club;
   isFavorite?: boolean;
-  onToggleFavorite?: (clubId: string, isCurrentlyFavorite: boolean) => void;
+  onToggleFavorite?: (clubId: string, isCurrentlyFavorite: boolean, clubName?: string) => void;
   isToggleLoading?: boolean;
   imageLoading?: 'eager' | 'lazy';
 };
@@ -36,7 +36,7 @@ export const ClubCard = memo<ClubCardProps>((props) => {
   const handleToggleClick = (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    onToggleFavorite?.(club.id, isFavorite);
+    onToggleFavorite?.(club.id, isFavorite, club.name);
   };
 
   return (

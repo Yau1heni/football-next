@@ -3,6 +3,7 @@ import type { Article, Reaction, ReactionType } from '@shared-types/articles.typ
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { calculateReactionDelta } from '@utils/calculate-reaction-delta';
 import { Timestamp } from 'firebase/firestore';
+import { toast } from 'react-toastify/unstyled';
 
 import { getArticleQueryKeys, getArticleUserReactionQueryKeys } from './keys';
 
@@ -52,6 +53,7 @@ export const useSetArticleReactionMutation = () => {
     },
 
     onError: (_err, variables, context) => {
+      toast.error('Не удалось поставить реакцию');
       if (context?.previousArticle != null) {
         queryClient.setQueryData(getArticleQueryKeys(variables.articleId), context.previousArticle);
       }
