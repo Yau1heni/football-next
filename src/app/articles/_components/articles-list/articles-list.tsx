@@ -1,26 +1,22 @@
 'use client';
 
 import { StateMessage } from '@components/state-message';
-import { useInfiniteScroll } from '@hooks/use-infinite-scroll';
-import { useArticlesQuery } from '@queries/articles';
 import type { FC } from 'react';
-import { useRef } from 'react';
 
-import { ArticleCard } from './article-card/article-card';
-import { ArticleCardSkeleton } from './article-card/article-card-skeleton';
 import { ArticlesListSkeleton } from './articles-list-skeleton';
+import { useArticlesList } from './use-articles-list-virtual';
+import { VirtualArticleItem } from './virtual-article-item';
 
 export const ArticlesList: FC = () => {
-  const sentinelRef = useRef<HTMLDivElement>(null);
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError, isLoading } =
-    useArticlesQuery();
-
-  useInfiniteScroll(sentinelRef, {
-    onIntersect: () => fetchNextPage(),
-    enabled: hasNextPage && !isFetchingNextPage,
-  });
-
-  const articles = data?.pages.flatMap((page) => page.articles) ?? [];
+  const {
+    articles,
+    rowVirtualizer,
+    sentinelRef,
+    scrollMargin,
+    isError,
+    isLoading,
+    hasNextPage,
+  } = useArticlesList();
 
   if (isError) {
     return <StateMessage variant={'error'} title={'Ошибка загрузки статей'} />;
@@ -36,17 +32,22 @@ export const ArticlesList: FC = () => {
 
   return (
     <>
-      <ul>
-        {articles.map((article, index) => (
-          <li key={article.id}>
-            <ArticleCard article={article} index={index} />
-          </li>
+      <ul
+        style={{
+          height: rowVirtualizer.getTotalSize(),
+          width: '100%',
+          position: 'relative',
+        }}
+      >
+        {rowVirtualizer.getVirtualItems().map((virtualRow) => (
+          <VirtualArticleItem
+            key={virtualRow.key}
+            virtualRow={virtualRow}
+            articles={articles}
+            measureElementAction={rowVirtualizer.measureElement}
+            scrollMargin={scrollMargin}
+          />
         ))}
-        {isFetchingNextPage && (
-          <li>
-            <ArticleCardSkeleton />
-          </li>
-        )}
       </ul>
       {hasNextPage && <div ref={sentinelRef} aria-hidden />}
     </>
