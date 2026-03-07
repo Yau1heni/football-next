@@ -9,7 +9,7 @@ import type { AuthFormConfig } from '@configs/auth-forms-config';
 import { useFormValidation } from '@hooks/use-form-validation';
 import { useAuthWithGithubMutation, useAuthWithGoogleMutation } from '@queries/auth';
 import Link from 'next/link';
-import { type FC } from 'react';
+import { type ComponentProps, type FC } from 'react';
 
 import styles from './auth-forms.module.scss';
 
@@ -32,7 +32,7 @@ export const AuthForms: FC<AuthFormsProps> = (props) => {
 
   const isLoading = isSubmitting || authWithGoogle.isPending || authWithGithub.isPending;
 
-  const handleSubmit = (e: SubmitEvent) => {
+  const handleSubmit: NonNullable<ComponentProps<'form'>['onSubmit']> = (e) => {
     e.preventDefault();
     if (!validateAll()) return;
     onSubmitAction(values);
