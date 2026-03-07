@@ -16,7 +16,7 @@ export const LoginForm = () => {
           password: values.password,
         })
       }
-      isSubmitting={loginWithEmail.isPending}
+      isSubmitting={loginWithEmail.isPending || loginWithEmail.isSuccess}
     />
   );
 };

@@ -12,4 +12,5 @@ export const useClubQuery = (id: string | undefined) =>
       return clubsApi.getClub(id);
     },
     staleTime: STALE_TIME_MS,
+    throwOnError: true,
   });

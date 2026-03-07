@@ -12,23 +12,14 @@ import { ClubDescription } from '../club-description/club-description';
 import { ClubHistory } from '../club-history/club-history';
 import { ClubTrophiesList } from '../club-trophies-list/club-trophies-list';
 import styles from './club-content.module.scss';
-import { ClubContentSkeleton } from './club-content-skeleton';
 
 type ClubContentProps = {
   clubId: string;
 };
 
 export const ClubContent: FC<ClubContentProps> = ({ clubId }) => {
-  const { data: club, isLoading, isError } = useClubQuery(clubId);
+  const { data: club } = useClubQuery(clubId);
   const { favoriteIds, toggleFavorite, isPending, loadingClubId } = useFavoritesContext();
-
-  if (isError) {
-    return <StateMessage variant={'error'} title={'Ошибка загрузки клуба'} />;
-  }
-
-  if (isLoading) {
-    return <ClubContentSkeleton />;
-  }
 
   if (!club) {
     return <StateMessage variant={'empty'} title={'Клуб не найден'} />;

@@ -10,6 +10,7 @@ export const useArticleQuery = (articleId: string) =>
     enabled: !!articleId,
     queryFn: () => articlesApi.getById(articleId),
     staleTime: STALE_TIME_MS,
+    throwOnError: true,
   });
 
 export const useArticleUserReactionQuery = (articleId: string, userId: string) =>

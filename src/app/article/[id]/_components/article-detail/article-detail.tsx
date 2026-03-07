@@ -21,7 +21,6 @@ import Image from 'next/image';
 import type { FC } from 'react';
 
 import styles from './article-detail.module.scss';
-import { ArticleDetailSkeleton } from './article-detail-skeleton';
 import { ArticleDetailTags } from './article-detail-tags';
 
 type ArticleDetailProps = {
@@ -30,19 +29,11 @@ type ArticleDetailProps = {
 
 export const ArticleDetail: FC<ArticleDetailProps> = ({ articleId }) => {
   const id = articleId ?? '';
-  const { data: article, isError, isLoading } = useArticleQuery(id);
+  const { data: article } = useArticleQuery(id);
   const { user } = useAuthContext();
   const userId = user?.uid ?? '';
   const { data: userReaction } = useArticleUserReactionQuery(id, userId);
   const setReaction = useSetArticleReactionMutation();
-
-  if (isError) {
-    return <StateMessage variant={'error'} title={'Ошибка загрузки статьи'} />;
-  }
-
-  if (isLoading) {
-    return <ArticleDetailSkeleton />;
-  }
 
   if (!article) {
     return <StateMessage variant={'empty'} title={'Статья не найдена'} />;

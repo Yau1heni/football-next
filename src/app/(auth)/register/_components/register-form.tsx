@@ -17,7 +17,7 @@ export const RegisterForm = () => {
           password: values.password,
         })
       }
-      isSubmitting={registerWithEmail.isPending}
+      isSubmitting={registerWithEmail.isPending || registerWithEmail.isSuccess}
     />
   );
 };
