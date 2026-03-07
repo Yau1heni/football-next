@@ -8,17 +8,18 @@ import type { FC } from 'react';
 import styles from './oauth-buttons.module.scss';
 
 export type OAuthButtonsProps = {
+  label: string;
   onGoogleClickAction: () => void | Promise<void>;
   onGithubClickAction: () => void | Promise<void>;
   disabled?: boolean;
 };
 
 export const OAuthButtons: FC<OAuthButtonsProps> = (props) => {
-  const { onGoogleClickAction, onGithubClickAction, disabled = false } = props;
+  const { label, onGoogleClickAction, onGithubClickAction, disabled = false } = props;
 
   return (
     <div className={styles.oAuthButtons} role="group" aria-label="Вход через соцсети">
-      <Typography>или войти через</Typography>
+      <Typography>{label}</Typography>
       <div className={styles.buttons}>
         <Button
           variant="ghost"

@@ -14,7 +14,7 @@ export const validateEmail = (value: string): string | null => {
 
 export const validatePassword = (value: string): string | null => {
   if (isEmpty(value)) return 'Поле обязательно';
-  if (!isPasswordValid(value)) return 'Пароль должен быть не меньше 5 символов';
+  if (!isPasswordValid(value)) return `Пароль должен быть не менее ${MIN_PASSWORD_LENGTH} символов`;
   return null;
 };
 

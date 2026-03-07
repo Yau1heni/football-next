@@ -18,7 +18,6 @@ export const RegisterForm = () => {
         })
       }
       isSubmitting={registerWithEmail.isPending}
-      submitError={registerWithEmail.error}
     />
   );
 };

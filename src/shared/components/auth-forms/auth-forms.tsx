@@ -9,7 +9,7 @@ import type { AuthFormConfig } from '@configs/auth-forms-config';
 import { useFormValidation } from '@hooks/use-form-validation';
 import { useAuthWithGithubMutation, useAuthWithGoogleMutation } from '@queries/auth';
 import Link from 'next/link';
-import { type FC, type SubmitEvent } from 'react';
+import { type FC } from 'react';
 
 import styles from './auth-forms.module.scss';
 
@@ -17,11 +17,10 @@ type AuthFormsProps = {
   config: AuthFormConfig;
   onSubmitAction: (values: Record<string, string>) => void;
   isSubmitting?: boolean;
-  submitError?: Error | null;
 };
 
 export const AuthForms: FC<AuthFormsProps> = (props) => {
-  const { config, onSubmitAction, isSubmitting = false, submitError = null } = props;
+  const { config, onSubmitAction, isSubmitting = false } = props;
 
   const { values, validateAll, getFieldProps, isValid } = useFormValidation(
     config.initialValues as Record<string, string>,
@@ -32,9 +31,8 @@ export const AuthForms: FC<AuthFormsProps> = (props) => {
   const authWithGithub = useAuthWithGithubMutation();
 
   const isLoading = isSubmitting || authWithGoogle.isPending || authWithGithub.isPending;
-  const isError = Boolean(submitError || authWithGoogle.error || authWithGithub.error);
 
-  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
     if (!validateAll()) return;
     onSubmitAction(values);
@@ -68,17 +66,11 @@ export const AuthForms: FC<AuthFormsProps> = (props) => {
         </Button>
       </form>
       <OAuthButtons
+        label={config.oauthLabel}
         onGoogleClickAction={authWithGoogle.mutate}
         onGithubClickAction={authWithGithub.mutate}
         disabled={isLoading}
       />
-      {isError && (
-        <div role="alert">
-          <Typography view="p-16" color="error">
-            {config.errorMessage}
-          </Typography>
-        </div>
-      )}
       <div className={styles.linkWrapper}>
         <Link href={config.linkTo} aria-describedby={config.titleId}>
           <Typography>{config.linkText}</Typography>

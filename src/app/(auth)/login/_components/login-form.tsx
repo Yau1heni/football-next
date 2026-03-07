@@ -17,7 +17,6 @@ export const LoginForm = () => {
         })
       }
       isSubmitting={loginWithEmail.isPending}
-      submitError={loginWithEmail.error}
     />
   );
 };

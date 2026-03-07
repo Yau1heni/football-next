@@ -18,7 +18,7 @@ export type AuthFormConfig = {
   initialValues: Record<string, string>;
   validators: Record<string, FieldValidator>;
   submitLabel: string;
-  errorMessage: string;
+  oauthLabel: string;
   linkTo: string;
   linkText: string;
 };
@@ -48,7 +48,7 @@ export const loginFormConfig: AuthFormConfig = {
     password: validatePassword,
   },
   submitLabel: 'Войти',
-  errorMessage: 'Не удалось выполнить вход. Попробуйте ещё раз.',
+  oauthLabel: 'или войти через',
   linkTo: routes.register.mask,
   linkText: 'Зарегистрироваться',
 };
@@ -86,7 +86,7 @@ export const registerFormConfig: AuthFormConfig = {
     password: validatePassword,
   },
   submitLabel: 'Зарегистрироваться',
-  errorMessage: 'Не удалось зарегистрироваться. Попробуйте ещё раз.',
+  oauthLabel: 'или зарегистрироваться через',
   linkTo: routes.login.mask,
   linkText: 'Войти',
 };
