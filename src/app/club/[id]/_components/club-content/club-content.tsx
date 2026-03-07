@@ -6,7 +6,6 @@ import { StateMessage } from '@components/state-message';
 import { Button } from '@components/ui/button';
 import { useFavoritesContext } from '@contexts/favorites';
 import { useClubQuery } from '@queries/club';
-import { useParams } from 'next/navigation';
 import type { FC } from 'react';
 
 import { ClubDescription } from '../club-description/club-description';
@@ -15,11 +14,12 @@ import { ClubTrophiesList } from '../club-trophies-list/club-trophies-list';
 import styles from './club-content.module.scss';
 import { ClubContentSkeleton } from './club-content-skeleton';
 
-export const ClubContent: FC = () => {
-  const params = useParams();
-  const id = typeof params.id === 'string' ? params.id : undefined;
+type ClubContentProps = {
+  clubId: string;
+};
 
-  const { data: club, isLoading, isError } = useClubQuery(id);
+export const ClubContent: FC<ClubContentProps> = ({ clubId }) => {
+  const { data: club, isLoading, isError } = useClubQuery(clubId);
   const { favoriteIds, toggleFavorite, isPending, loadingClubId } = useFavoritesContext();
 
   if (isError) {

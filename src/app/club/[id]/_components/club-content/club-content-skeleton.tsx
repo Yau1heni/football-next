@@ -1,5 +1,3 @@
-'use client';
-
 import { ContentContainer } from '@components/content-container';
 import { PageTitleSkeleton } from '@components/page-title';
 import { Skeleton } from '@components/ui/skeleton';

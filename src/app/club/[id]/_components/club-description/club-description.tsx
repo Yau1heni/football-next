@@ -1,5 +1,3 @@
-'use client';
-
 import { ContentContainer } from '@components/content-container';
 import { SocialLinks } from '@components/social-links';
 import { Typography } from '@components/ui/typography';

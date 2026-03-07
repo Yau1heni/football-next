@@ -1,5 +1,3 @@
-'use client';
-
 import { ContentContainer } from '@components/content-container';
 import type { FC } from 'react';
 

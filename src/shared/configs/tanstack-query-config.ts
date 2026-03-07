@@ -1,4 +1,4 @@
-import { STALE_TIME_MS } from '@constants/queries';
+import { GC_TIME_MS, STALE_TIME_MS } from '@constants/queries';
 
 export const clientOptions = {
   defaultOptions: {
@@ -6,7 +6,7 @@ export const clientOptions = {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       staleTime: STALE_TIME_MS,
-      gcTime: 10 * 60 * 1000,
+      gcTime: GC_TIME_MS,
     },
   },
 };

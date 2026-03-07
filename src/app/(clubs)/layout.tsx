@@ -1,5 +1,3 @@
-'use client';
-
 import { ProtectedRoute } from '@components/protected-route';
 import type { ReactNode } from 'react';
 
