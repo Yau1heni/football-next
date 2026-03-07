@@ -12,10 +12,7 @@
   background: $color-surface;
   border-radius: $border-radius;
   overflow: hidden;
-  height: 100%;
   transition: box-shadow 0.2s;
-
-  margin-bottom: 20px;
 
   &:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);

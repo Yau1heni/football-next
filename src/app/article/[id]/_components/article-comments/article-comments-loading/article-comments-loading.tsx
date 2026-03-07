@@ -9,7 +9,7 @@ import { ArticleCommentsListSkeleton } from './article-comments-list-skeleton';
 
 export const ArticleCommentsLoading: FC = () => (
   <div className={styles.articleComments}>
-    <ArticleCommentForm onSubmitAction={noop} placeholder={'Введите комментарий...'} />
+    <ArticleCommentForm onSubmitAction={noop} loading={true} />
     <ArticleCommentsListSkeleton />
   </div>
 );

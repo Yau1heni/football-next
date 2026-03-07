@@ -51,10 +51,7 @@ export const ArticleCommentItem: FC<ArticleCommentItemProps> = memo((props) => {
 
   return (
     <article
-      className={cn(
-        styles.articleCommentItem,
-        isDeleted && [styles.articleCommentItem, styles.deleted]
-      )}
+      className={cn(styles.articleCommentItem, isDeleted && styles.deleted)}
       style={{ marginLeft: depth * COMMENT_INDENT_PX }}
       data-depth={depth}
     >

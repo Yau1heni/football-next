@@ -1,5 +1,3 @@
-'use client';
-
 import type { Article } from '@shared-types/articles.types';
 import type { VirtualItem } from '@tanstack/react-virtual';
 import type { FC } from 'react';
@@ -28,6 +26,7 @@ export const VirtualArticleItem: FC<VirtualArticleItemProps> = ({
       top: 0,
       left: 0,
       width: '100%',
+      paddingBottom: '20px',
       transform: `translateY(${virtualRow.start - scrollMargin}px)`,
     }}
   >

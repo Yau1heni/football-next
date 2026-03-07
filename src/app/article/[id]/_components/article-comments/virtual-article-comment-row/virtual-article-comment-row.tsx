@@ -4,6 +4,7 @@ import type { ReactionType } from '@shared-types/articles.types';
 import type { VirtualItem } from '@tanstack/react-virtual';
 import type { CommentDisplayItem } from '@utils/article-comments';
 import type { FC } from 'react';
+import { memo } from 'react';
 
 import { ArticleCommentForm } from '../article-comment-form';
 import {
@@ -29,7 +30,7 @@ type VirtualArticleCommentRowProps = {
   ) => void;
 };
 
-export const VirtualArticleCommentRow: FC<VirtualArticleCommentRowProps> = (props) => {
+export const VirtualArticleCommentRow: FC<VirtualArticleCommentRowProps> = memo((props) => {
   const {
     virtualRow,
     displayList,
@@ -82,4 +83,6 @@ export const VirtualArticleCommentRow: FC<VirtualArticleCommentRowProps> = (prop
       )}
     </div>
   );
-};
+});
+
+VirtualArticleCommentRow.displayName = 'VirtualArticleCommentRow';
