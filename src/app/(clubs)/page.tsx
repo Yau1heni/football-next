@@ -22,10 +22,14 @@ const ClubsPage = async ({ searchParams }: ClubsPageProps) => {
 
   const queryOptions = getClubsQueryOptionsFromSearchParams(resolved);
 
-  await queryClient.prefetchQuery({
-    queryKey: getClubsQueryKeys(queryOptions),
-    queryFn: () => clubsApi.getFromTypesense(queryOptions),
-  });
+  // Skip prefetch when favoritesOnly — favoriteIds are only known client-side,
+  // so the query key would never match and the prefetch would be wasted.
+  if (!queryOptions.favoritesIds) {
+    await queryClient.prefetchQuery({
+      queryKey: getClubsQueryKeys(queryOptions),
+      queryFn: () => clubsApi.getFromTypesense(queryOptions),
+    });
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

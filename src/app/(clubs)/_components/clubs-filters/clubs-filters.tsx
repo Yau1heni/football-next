@@ -5,9 +5,9 @@ import { InputSearch } from '@components/input-search';
 import { Button } from '@components/ui/button';
 import { CheckBox } from '@components/ui/check-box';
 import { MultiDropdown } from '@components/ui/multi-dropdown';
-import { useState } from 'react';
+import { type FilterOption } from '@utils/filter-options';
+import { useEffect, useState } from 'react';
 
-import { useClubsFilters } from '../use-clubs-filters';
 import styles from './clubs-filters.module.scss';
 import {
   CLUB_COUNTRIES_OPTIONS,
@@ -15,25 +15,41 @@ import {
   getCountriesTitle,
 } from './clubs-filters-utils';
 
-export const ClubsFilters = () => {
+type ClubsFiltersProps = {
+  searchTerm: string;
+  sortOption: FilterOption | null;
+  countriesOptions: FilterOption[];
+  favoritesOnly: boolean;
+  onApplySearch: (value: string) => void;
+  onSetSortOption: (option: FilterOption | null) => void;
+  onSetCountriesOptions: (options: FilterOption[]) => void;
+  onSetFavoritesOnly: (value: boolean) => void;
+  onResetFilters: () => void;
+};
+
+export const ClubsFilters = (props: ClubsFiltersProps) => {
   const {
-    queryOptions,
-    favoritesOnly,
-    applySearch,
-    setSortOption,
+    searchTerm,
     sortOption,
     countriesOptions,
-    setCountriesOptions,
-    setFavoritesOnly,
-    resetFilters,
-  } = useClubsFilters();
+    favoritesOnly,
+    onApplySearch,
+    onSetSortOption,
+    onSetCountriesOptions,
+    onSetFavoritesOnly,
+    onResetFilters,
+  } = props;
 
-  const [searchDraft, setSearchDraft] = useState(queryOptions.searchTerm);
+  const [searchDraft, setSearchDraft] = useState(searchTerm);
 
-  const onSearch = () => applySearch(searchDraft);
+  useEffect(() => {
+    setSearchDraft(searchTerm);
+  }, [searchTerm]);
+
+  const onSearch = () => onApplySearch(searchDraft);
   const onReset = () => {
     setSearchDraft('');
-    resetFilters();
+    onResetFilters();
   };
 
   return (
@@ -44,18 +60,18 @@ export const ClubsFilters = () => {
           className={styles.dropdown}
           options={getClubsSortOptions}
           value={sortOption}
-          onChangeAction={setSortOption}
+          onChangeAction={onSetSortOption}
           placeholder={'Сортировка'}
         />
         <MultiDropdown
           className={styles.dropdown}
           options={CLUB_COUNTRIES_OPTIONS}
           value={countriesOptions}
-          onChange={setCountriesOptions}
+          onChange={onSetCountriesOptions}
           getTitle={getCountriesTitle}
         />
         <label className={styles.favoritesLabel}>
-          <CheckBox checked={favoritesOnly} onChange={setFavoritesOnly} />
+          <CheckBox checked={favoritesOnly} onChange={onSetFavoritesOnly} />
           <span>Только избранное</span>
         </label>
         <Button className={styles.resetBtn} onClick={onReset}>

@@ -1,5 +1,3 @@
-'use client';
-
 import { HtmlContent } from '@components/html-content';
 import { Button } from '@components/ui/button';
 import { Card } from '@components/ui/card';

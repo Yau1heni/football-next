@@ -1,5 +1,3 @@
-'use client';
-
 import { StateMessage } from '@components/state-message';
 import type { Club } from '@shared-types/clubs.types';
 
