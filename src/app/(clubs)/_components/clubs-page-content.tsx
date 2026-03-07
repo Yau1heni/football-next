@@ -34,11 +34,11 @@ export const ClubsPageContent = () => {
         sortOption={sortOption}
         countriesOptions={countriesOptions}
         favoritesOnly={favoritesOnly}
-        onApplySearch={applySearch}
-        onSetSortOption={setSortOption}
-        onSetCountriesOptions={setCountriesOptions}
-        onSetFavoritesOnly={setFavoritesOnly}
-        onResetFilters={resetFilters}
+        onApplySearchAction={applySearch}
+        onSetSortOptionAction={setSortOption}
+        onSetCountriesOptionsAction={setCountriesOptions}
+        onSetFavoritesOnlyAction={setFavoritesOnly}
+        onResetFiltersAction={resetFilters}
       />
       <ClubsList
         clubs={data?.clubsData ?? []}

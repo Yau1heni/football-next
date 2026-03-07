@@ -20,11 +20,11 @@ type ClubsFiltersProps = {
   sortOption: FilterOption | null;
   countriesOptions: FilterOption[];
   favoritesOnly: boolean;
-  onApplySearch: (value: string) => void;
-  onSetSortOption: (option: FilterOption | null) => void;
-  onSetCountriesOptions: (options: FilterOption[]) => void;
-  onSetFavoritesOnly: (value: boolean) => void;
-  onResetFilters: () => void;
+  onApplySearchAction: (value: string) => void;
+  onSetSortOptionAction: (option: FilterOption | null) => void;
+  onSetCountriesOptionsAction: (options: FilterOption[]) => void;
+  onSetFavoritesOnlyAction: (value: boolean) => void;
+  onResetFiltersAction: () => void;
 };
 
 export const ClubsFilters = (props: ClubsFiltersProps) => {
@@ -33,11 +33,11 @@ export const ClubsFilters = (props: ClubsFiltersProps) => {
     sortOption,
     countriesOptions,
     favoritesOnly,
-    onApplySearch,
-    onSetSortOption,
-    onSetCountriesOptions,
-    onSetFavoritesOnly,
-    onResetFilters,
+    onApplySearchAction,
+    onSetSortOptionAction,
+    onSetCountriesOptionsAction,
+    onSetFavoritesOnlyAction,
+    onResetFiltersAction,
   } = props;
 
   const [searchDraft, setSearchDraft] = useState(searchTerm);
@@ -46,10 +46,10 @@ export const ClubsFilters = (props: ClubsFiltersProps) => {
     setSearchDraft(searchTerm);
   }, [searchTerm]);
 
-  const onSearch = () => onApplySearch(searchDraft);
+  const onSearch = () => onApplySearchAction(searchDraft);
   const onReset = () => {
     setSearchDraft('');
-    onResetFilters();
+    onResetFiltersAction();
   };
 
   return (
@@ -60,18 +60,18 @@ export const ClubsFilters = (props: ClubsFiltersProps) => {
           className={styles.dropdown}
           options={getClubsSortOptions}
           value={sortOption}
-          onChangeAction={onSetSortOption}
+          onChangeAction={onSetSortOptionAction}
           placeholder={'Сортировка'}
         />
         <MultiDropdown
           className={styles.dropdown}
           options={CLUB_COUNTRIES_OPTIONS}
           value={countriesOptions}
-          onChange={onSetCountriesOptions}
+          onChange={onSetCountriesOptionsAction}
           getTitle={getCountriesTitle}
         />
         <label className={styles.favoritesLabel}>
-          <CheckBox checked={favoritesOnly} onChange={onSetFavoritesOnly} />
+          <CheckBox checked={favoritesOnly} onChange={onSetFavoritesOnlyAction} />
           <span>Только избранное</span>
         </label>
         <Button className={styles.resetBtn} onClick={onReset}>
