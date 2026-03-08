@@ -65,6 +65,7 @@ export const Card: FC<CardProps> = (props) => {
           height={imageHeight}
           src={image}
           alt={'card image'}
+          sizes={`${imageWidth}px`}
           loading={imageLoading}
         />
       </div>

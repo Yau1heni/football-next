@@ -32,6 +32,7 @@ export const ClubLogo: FC<ClubLogoProps> = (props) => {
         alt={'Логотип клуба'}
         width={size === 's' ? CLUB_LOGO_SIZE_S : CLUB_LOGO_SIZE_M}
         height={size === 's' ? CLUB_LOGO_SIZE_S : CLUB_LOGO_SIZE_M}
+        sizes={size === 's' ? '120px' : '280px'}
       />
       {isFavorite && (
         <span className={styles.favoriteBadge}>

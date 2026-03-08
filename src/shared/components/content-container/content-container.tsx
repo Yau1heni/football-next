@@ -36,6 +36,7 @@ export const ContentContainer: FC<ContentContainerProps> = (props) => {
             alt={'Эмблема'}
             width={CONTENT_CONTAINER_EMBLEM_SIZE}
             height={CONTENT_CONTAINER_EMBLEM_SIZE}
+            sizes={`${CONTENT_CONTAINER_EMBLEM_SIZE}px`}
           />
         )}
       </div>
