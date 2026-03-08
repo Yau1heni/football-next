@@ -1,8 +1,16 @@
-import { StateMessage } from '@components/state-message';
-import styles from '@components/ui/button/button.module.scss';
+'use client';
+
 import { routes } from '@configs/routes';
-import cn from 'classnames';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
+
+const StateMessage = dynamic(
+  () =>
+    import('@components/state-message').then((mod) => ({
+      default: mod.StateMessage,
+    })),
+  { ssr: false }
+);
 
 const NotFound = () => {
   return (
@@ -10,11 +18,7 @@ const NotFound = () => {
       variant="empty"
       title="Страница не найдена"
       description="Запрашиваемая страница не существует или была перемещена"
-      action={
-        <Link href={routes.main.mask} className={cn(styles.button, styles.button_primary)}>
-          На главную
-        </Link>
-      }
+      action={<Link href={routes.main.mask}>На главную</Link>}
     />
   );
 };

@@ -1,1 +1,1 @@
-export { StateMessage, type StateMessageProps, type StateMessageVariant } from './state-message';
+export { StateMessage } from './state-message';

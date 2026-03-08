@@ -8,9 +8,7 @@ import type { FC, ReactNode } from 'react';
 import styles from './state-message.module.scss';
 import { DEFAULT_TEXTS, type StateMessageVariant } from './state-message-constant';
 
-export type { StateMessageVariant };
-
-export type StateMessageProps = {
+type StateMessageProps = {
   variant: StateMessageVariant;
   title?: string;
   description?: string;
