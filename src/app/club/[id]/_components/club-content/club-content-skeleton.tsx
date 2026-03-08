@@ -11,7 +11,7 @@ export const ClubContentSkeleton: FC = () => (
     <PageTitleSkeleton />
     <header className={styles.header}>
       <div className={styles.imageContainer}>
-        <Skeleton variant={'circular'} width={280} height={280} className={styles.logo} />
+        <Skeleton width={280} height={280} className={styles.logo} />
       </div>
       <ContentContainer title={'Информация о клубе'} isSkeleton>
         <Skeleton variant={'text'} width={'50%'} />
