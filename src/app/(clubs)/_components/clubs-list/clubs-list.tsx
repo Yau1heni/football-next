@@ -18,6 +18,8 @@ type ClubsListProps = {
   loadingClubId?: string | null;
 };
 
+const MAX_CARDS_IN_FIRST_ROW = 4;
+
 export const ClubsList = (props: ClubsListProps) => {
   const {
     clubs,
@@ -50,7 +52,7 @@ export const ClubsList = (props: ClubsListProps) => {
             isFavorite={favoriteIds.includes(club.id)}
             onToggleFavorite={onToggleFavoriteAction}
             isToggleLoading={loadingClubId === club.id}
-            imageLoading={index === 0 ? 'eager' : 'lazy'}
+            imageLoading={index < MAX_CARDS_IN_FIRST_ROW ? 'eager' : 'lazy'}
           />
         ))}
       </div>
