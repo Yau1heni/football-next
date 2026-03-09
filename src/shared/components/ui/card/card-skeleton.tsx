@@ -21,8 +21,7 @@ export const CardSkeleton: FC<CardSkeletonProps> = ({ isWithAction = false, imag
           <Skeleton variant={'text'} width={'60%'} />
         </div>
         <div className={styles.footer}>
-          <Skeleton className={styles.contentSlot} variant={'text'} width={'20%'} />
-          {isWithAction && <Skeleton width={220} height={50} />}
+          {isWithAction && <Skeleton width={'100%'} height={50} />}
         </div>
       </div>
     </div>

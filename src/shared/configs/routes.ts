@@ -20,7 +20,7 @@ export const routes = {
     create: () => '/articles',
   },
   article: {
-    mask: '/article/[id]',
-    create: (id: string) => `/article/${id}`,
+    mask: '/articles/[id]',
+    create: (id: string) => `/articles/${id}`,
   },
 } as const;

@@ -5,7 +5,7 @@ export const ARTICLE_IMAGE_WIDTH = 300;
 export const ARTICLE_IMAGE_HEIGHT = 188;
 
 export const DEFAULT_CLUB_IMAGE =
-  'https://res.cloudinary.com/dyendeiwv/image/upload/v1772733520/football-seeklogo_cxpilh_toiq40.webp';
+  'https://res.cloudinary.com/dyendeiwv/image/upload/v1772975004/football-seeklogo_gwd1zv.webp';
 
 export const DEFAULT_IMAGE_WIDTH = 400;
 export const DEFAULT_IMAGE_HEIGHT = 400;

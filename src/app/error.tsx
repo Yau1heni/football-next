@@ -16,7 +16,6 @@ const StateMessage = dynamic(
   { ssr: false }
 );
 
-
 const RootError = ({ error, reset }: ErrorProps) => {
   return (
     <StateMessage
