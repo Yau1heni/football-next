@@ -37,8 +37,12 @@ export const Dropdown: FC<DropdownProps> = (props) => {
     open,
     setOpen,
     handleSelect,
+    handleKeyDown,
     containerRef,
     selectedKey,
+    highlightedIndex,
+    listboxId,
+    getOptionId,
     options: optionsList,
   } = useDropdown(options, value, onChangeAction);
 
@@ -48,6 +52,8 @@ export const Dropdown: FC<DropdownProps> = (props) => {
     if (!disabled) setOpen(!open);
   };
 
+  const highlightedOption = highlightedIndex >= 0 ? optionsList[highlightedIndex] : null;
+
   return (
     <div ref={containerRef} className={cn(styles.dropdown, className)}>
       <Input
@@ -56,13 +62,19 @@ export const Dropdown: FC<DropdownProps> = (props) => {
         placeholder={placeholder}
         onFocus={handleInputFocus}
         onChange={() => {}}
+        onKeyDown={handleKeyDown}
         readOnly
+        role={'combobox'}
+        aria-haspopup={'listbox'}
+        aria-expanded={open}
+        aria-controls={listboxId}
+        aria-activedescendant={highlightedOption ? getOptionId(highlightedOption.key) : undefined}
         afterSlot={
           <Button
             type={'button'}
             className={cn(styles.iconButton, open && styles.iconButtonOpen)}
             onClick={handleIconButtonClick}
-            aria-expanded={open}
+            aria-label={open ? 'Закрыть список' : 'Открыть список'}
             tabIndex={-1}
           >
             <ArrowDownIcon color={'secondary'} />
@@ -72,17 +84,19 @@ export const Dropdown: FC<DropdownProps> = (props) => {
       />
 
       {open && !disabled && (
-        <div className={styles.list}>
+        <div id={listboxId} role={'listbox'} className={styles.list}>
           {optionsList.length === 0 ? (
             <Typography view={'p-16'} className={styles.emptyOption}>
               Нет вариантов
             </Typography>
           ) : (
-            optionsList.map((opt) => (
+            optionsList.map((opt, index) => (
               <DropdownOptionItem
                 key={opt.key}
                 option={opt}
                 isSelected={selectedKey === opt.key}
+                isHighlighted={index === highlightedIndex}
+                optionId={getOptionId(opt.key)}
                 onSelect={handleSelect}
               />
             ))

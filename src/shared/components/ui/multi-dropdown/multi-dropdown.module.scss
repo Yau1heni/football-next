@@ -2,3 +2,21 @@
   position: relative;
   width: 100%;
 }
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    background: none !important;
+  }
+}
+
+.iconButtonOpen {
+  transform: rotate(180deg);
+}

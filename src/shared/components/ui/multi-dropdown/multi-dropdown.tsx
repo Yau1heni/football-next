@@ -1,3 +1,4 @@
+import { Button } from '@components/ui/button';
 import { ArrowDownIcon } from '@components/ui/icons';
 import { Input } from '@components/ui/input';
 import cn from 'classnames';
@@ -36,11 +37,15 @@ export const MultiDropdown: FC<MultiDropdownProps> = (props) => {
     open,
     setOpen,
     search,
-    setSearch,
+    handleSearchChange,
     filteredOptions,
     handleSelect,
+    handleKeyDown,
     containerRef,
     selectedKeys,
+    highlightedIndex,
+    listboxId,
+    getOptionId,
   } = useMultiDropdown(options, value, onChange);
 
   const getInputValue = () => {
@@ -52,8 +57,14 @@ export const MultiDropdown: FC<MultiDropdownProps> = (props) => {
 
   const handleFocus = () => {
     setOpen(true);
-    setSearch('');
+    handleSearchChange('');
   };
+
+  const handleIconButtonClick = () => {
+    if (!disabled) setOpen(!open);
+  };
+
+  const highlightedOption = highlightedIndex >= 0 ? filteredOptions[highlightedIndex] : null;
 
   return (
     <div ref={containerRef} className={cn(styles.multiDropdown, className)}>
@@ -63,9 +74,25 @@ export const MultiDropdown: FC<MultiDropdownProps> = (props) => {
         value={getInputValue()}
         placeholder={getTitle(value)}
         onFocus={handleFocus}
-        onChange={setSearch}
+        onChange={handleSearchChange}
+        onKeyDown={handleKeyDown}
         readOnly={disabled}
-        afterSlot={<ArrowDownIcon color={'secondary'} />}
+        role={'combobox'}
+        aria-haspopup={'listbox'}
+        aria-expanded={open}
+        aria-controls={listboxId}
+        aria-activedescendant={highlightedOption ? getOptionId(highlightedOption.key) : undefined}
+        afterSlot={
+          <Button
+            type={'button'}
+            className={cn(styles.iconButton, open && styles.iconButtonOpen)}
+            onClick={handleIconButtonClick}
+            aria-label={open ? 'Закрыть список' : 'Открыть список'}
+            tabIndex={-1}
+          >
+            <ArrowDownIcon color={'secondary'} />
+          </Button>
+        }
         autoComplete={'off'}
         id={'multiDropdown'}
       />
@@ -76,6 +103,9 @@ export const MultiDropdown: FC<MultiDropdownProps> = (props) => {
         filteredOptions={filteredOptions}
         onSelect={handleSelect}
         selectedKeys={selectedKeys}
+        listboxId={listboxId}
+        highlightedIndex={highlightedIndex}
+        getOptionId={getOptionId}
       />
     </div>
   );

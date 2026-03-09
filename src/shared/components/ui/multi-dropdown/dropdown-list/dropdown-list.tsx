@@ -11,24 +11,40 @@ type DropdownListProps = {
   filteredOptions: Option[];
   onSelect: (option: Option) => void;
   selectedKeys: Set<string>;
+  listboxId: string;
+  highlightedIndex: number;
+  getOptionId: (key: string) => string;
 };
 
 export const DropdownList: FC<DropdownListProps> = (props) => {
-  const { open, disabled, filteredOptions, onSelect, selectedKeys } = props;
+  const {
+    open,
+    disabled,
+    filteredOptions,
+    onSelect,
+    selectedKeys,
+    listboxId,
+    highlightedIndex,
+    getOptionId,
+  } = props;
 
   if (!open || disabled) return null;
 
   return (
-    <div className={styles.dropdown}>
+    <div id={listboxId} role={'listbox'} className={styles.dropdown}>
       {filteredOptions.length === 0 ? (
-        <Typography view={'p-16'}>Нет вариантов</Typography>
+        <Typography view={'p-16'} className={styles.emptyOption}>
+          Нет вариантов
+        </Typography>
       ) : (
-        filteredOptions.map((opt) => (
+        filteredOptions.map((opt, index) => (
           <DropdownListItem
             key={opt.key}
             option={opt}
             onSelect={onSelect}
             isSelected={selectedKeys.has(opt.key)}
+            isHighlighted={index === highlightedIndex}
+            optionId={getOptionId(opt.key)}
           />
         ))
       )}

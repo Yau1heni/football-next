@@ -1,27 +1,14 @@
-import type { RefObject } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useDropdownBase } from '@hooks/use-dropdown-base';
+import { useState } from 'react';
 
 import type { Option } from './multi-dropdown';
-
-type UseMultiDropdown = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  search: string;
-  setSearch: (search: string) => void;
-  filteredOptions: Option[];
-  handleSelect: (option: Option) => void;
-  containerRef: RefObject<HTMLDivElement | null>;
-  selectedKeys: Set<string>;
-};
 
 export const useMultiDropdown = (
   options: Option[],
   value: Option[],
   onChange: (value: Option[]) => void
-): UseMultiDropdown => {
-  const [open, setOpen] = useState(false);
+) => {
   const [search, setSearch] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const selectedKeys = new Set(value.map((v) => v.key));
 
@@ -29,7 +16,7 @@ export const useMultiDropdown = (
     opt.value.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleSelect = (option: Option) => {
+  const handleToggle = (option: Option) => {
     if (selectedKeys.has(option.key)) {
       onChange(value.filter((v) => v.key !== option.key));
     } else {
@@ -37,25 +24,35 @@ export const useMultiDropdown = (
     }
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
+  const {
+    open,
+    setOpen,
+    resetHighlight,
+    highlightedIndex,
+    selectOption,
+    handleKeyDown,
+    containerRef,
+    listboxId,
+    getOptionId,
+  } = useDropdownBase(filteredOptions, handleToggle, false);
 
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  const handleSearchChange = (newValue: string) => {
+    setSearch(newValue);
+    resetHighlight();
+  };
 
   return {
     open,
     setOpen,
     search,
-    setSearch,
+    handleSearchChange,
     filteredOptions,
-    handleSelect,
+    handleSelect: selectOption,
+    handleKeyDown,
     containerRef,
     selectedKeys,
+    highlightedIndex,
+    listboxId,
+    getOptionId,
   };
 };
