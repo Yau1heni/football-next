@@ -19,7 +19,7 @@ export const Header: FC = () => {
         <div className={styles.headerContent}>
           <Link href={routes.main.mask} className={styles.logo} aria-label="Логотип приложения">
             <LogoIcon />
-            <Typography tag="h1" view="p-20" weight="bold">
+            <Typography tag="span" view="p-20" weight="bold">
               #iLoveThisGame
             </Typography>
           </Link>

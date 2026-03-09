@@ -13,7 +13,7 @@ type ArticlePageContentProps = {
 
 export const ArticlePageContent: FC<ArticlePageContentProps> = ({ id }) => (
   <>
-    <PageTitle title={'Назад'} showBack={true} />
+    <PageTitle showBack />
     <ArticleDetail articleId={id} />
     {id ? (
       <ArticleCommentsProvider articleId={id}>

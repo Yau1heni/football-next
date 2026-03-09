@@ -64,7 +64,7 @@ export const ArticleDetail: FC<ArticleDetailProps> = ({ articleId }) => {
   const coverSrc = article.coverImageUrl || DEFAULT_ARTICLE_IMAGE;
 
   return (
-    <ContentContainer title={article.title}>
+    <ContentContainer title={article.title} titleTag="h1">
       <article className={styles.articleDetail}>
         {article.tags.length > 0 && <ArticleDetailTags tags={article.tags} />}
 

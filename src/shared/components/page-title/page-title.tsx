@@ -10,7 +10,7 @@ import { ColoredDots } from '../colored-dots';
 import styles from './page-title.module.scss';
 
 type PageTitleProps = {
-  title: string;
+  title?: string;
   teamColors?: string[];
   showBack?: boolean;
 };
@@ -35,9 +35,11 @@ export const PageTitle: FC<PageTitleProps> = ({ title, teamColors = [], showBack
           />
         </Button>
       )}
-      <Typography maxLines={2} weight={'bold'} className={styles.title}>
-        {title}
-      </Typography>
+      {title && (
+        <Typography tag={'h1'} maxLines={2} weight={'bold'} className={styles.title}>
+          {title}
+        </Typography>
+      )}
       {teamColors.length > 0 && <ColoredDots colors={teamColors} />}
     </div>
   );

@@ -11,12 +11,13 @@ import styles from './content-container.module.scss';
 type ContentContainerProps = {
   children: ReactNode;
   title?: string;
+  titleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   isSkeleton?: boolean;
   image?: string;
 };
 
 export const ContentContainer: FC<ContentContainerProps> = (props) => {
-  const { children, title, image, isSkeleton } = props;
+  const { children, title, titleTag = 'h2', image, isSkeleton } = props;
 
   return (
     <section className={styles.contentContainer}>
@@ -25,7 +26,12 @@ export const ContentContainer: FC<ContentContainerProps> = (props) => {
           {isSkeleton ? (
             <Skeleton variant={'text'} width={200} height={32} />
           ) : (
-            <Typography className={styles.sectionTitle} maxLines={2} view={'sectionTitle'}>
+            <Typography
+              tag={titleTag}
+              className={styles.sectionTitle}
+              maxLines={2}
+              view={'sectionTitle'}
+            >
               {title}
             </Typography>
           )}
