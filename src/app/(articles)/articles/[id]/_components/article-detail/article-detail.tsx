@@ -3,16 +3,12 @@
 import { ContentContainer } from '@components/content-container';
 import { HtmlContent } from '@components/html-content';
 import { ReactionButtons } from '@components/reaction-buttons';
-import { StateMessage } from '@components/state-message';
 import { Typography } from '@components/ui/typography';
 import { DEFAULT_ARTICLE_IMAGE } from '@constants/images';
 import { RU_VIEW } from '@constants/plural-forms';
 import { useAuthContext } from '@contexts/auth';
-import {
-  useArticleQuery,
-  useArticleUserReactionQuery,
-  useSetArticleReactionMutation,
-} from '@queries/article';
+import { useArticleUserReactionQuery, useSetArticleReactionMutation } from '@queries/article';
+import type { Article } from '@shared-types/articles.types';
 import { REACTION } from '@shared-types/articles.types';
 import { getCommentsCountLabel } from '@utils/article-comments';
 import { formatTimestamp } from '@utils/format-timestamp';
@@ -24,20 +20,14 @@ import styles from './article-detail.module.scss';
 import { ArticleDetailTags } from './article-detail-tags';
 
 type ArticleDetailProps = {
-  articleId: string | undefined;
+  article: Article;
 };
 
-export const ArticleDetail: FC<ArticleDetailProps> = ({ articleId }) => {
-  const id = articleId ?? '';
-  const { data: article } = useArticleQuery(id);
+export const ArticleDetail: FC<ArticleDetailProps> = ({ article }) => {
   const { user } = useAuthContext();
   const userId = user?.uid ?? '';
-  const { data: userReaction } = useArticleUserReactionQuery(id, userId);
+  const { data: userReaction } = useArticleUserReactionQuery(article.id, userId);
   const setReaction = useSetArticleReactionMutation();
-
-  if (!article) {
-    return <StateMessage variant={'empty'} title={'Статья не найдена'} />;
-  }
 
   const timestamp = formatTimestamp(article.timestamp);
 
@@ -64,7 +54,7 @@ export const ArticleDetail: FC<ArticleDetailProps> = ({ articleId }) => {
   const coverSrc = article.coverImageUrl || DEFAULT_ARTICLE_IMAGE;
 
   return (
-    <ContentContainer title={article.title} titleTag="h1">
+    <ContentContainer title={article.excerpt ?? article.title} titleTag="h1">
       <article className={styles.articleDetail}>
         {article.tags.length > 0 && <ArticleDetailTags tags={article.tags} />}
 

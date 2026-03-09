@@ -16,6 +16,7 @@
 
     @include mobile {
       font-size: $font-size-xl;
+      gap: $space-xs;
     }
   }
 }

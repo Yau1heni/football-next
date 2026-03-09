@@ -22,7 +22,7 @@ export const ContentContainer: FC<ContentContainerProps> = (props) => {
   return (
     <section className={styles.contentContainer}>
       <div className={styles.contentHeader}>
-        <div>
+        <div className={styles.sectionTitleWrapper}>
           {isSkeleton ? (
             <Skeleton variant={'text'} width={200} height={32} />
           ) : (

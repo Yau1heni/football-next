@@ -23,9 +23,15 @@
     margin-bottom: $space-l;
   }
 
-  .sectionTitle {
+  .sectionTitleWrapper {
     padding-bottom: $space-xxs;
     border-bottom: 2px solid $color-primary;
     display: inline-block;
+  }
+
+  .sectionTitle {
+    @include mobile {
+      font-size: $font-size-l;
+    }
   }
 }
