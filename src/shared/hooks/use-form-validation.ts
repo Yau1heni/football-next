@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 export type FieldValidator = (value: string) => string | null;
 
@@ -25,9 +25,6 @@ export const useFormValidation = <T extends string>(
     createInitialErrors(validators)
   );
 
-  const valuesRef = useRef(values);
-  valuesRef.current = values;
-
   const isValid = useMemo(() => {
     for (const field of Object.keys(validators) as T[]) {
       if (validators[field](values[field])) return false;
@@ -50,9 +47,9 @@ export const useFormValidation = <T extends string>(
 
   const handleBlur = useCallback(
     (field: T) => () => {
-      setErrors((prev) => ({ ...prev, [field]: validators[field](valuesRef.current[field]) }));
+      setErrors((prev) => ({ ...prev, [field]: validators[field](values[field]) }));
     },
-    [validators]
+    [validators, values]
   );
 
   const validateAll = useCallback((): boolean => {

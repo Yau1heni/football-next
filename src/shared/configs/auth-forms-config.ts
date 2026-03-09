@@ -39,7 +39,7 @@ export const loginFormConfig: AuthFormConfig = {
       label: 'Пароль',
       placeholder: 'Введите пароль',
       type: 'password',
-      autoComplete: 'current-password',
+      autoComplete: 'new-password',
     },
   ],
   initialValues: { email: '', password: '' },
