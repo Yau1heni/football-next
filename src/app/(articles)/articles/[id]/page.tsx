@@ -1,4 +1,4 @@
-import { cachedArticlesApi } from '@api/cached-articles-api';
+import { articlesApi } from '@api/articles-api';
 import { clientOptions } from '@configs/tanstack-query-config';
 import { getArticleQueryKeys } from '@queries/article/keys';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
@@ -12,7 +12,7 @@ type ArticlePageProps = {
 
 export const generateMetadata = async ({ params }: ArticlePageProps): Promise<Metadata> => {
   const { id } = await params;
-  const article = await cachedArticlesApi.getById(id);
+  const article = await articlesApi.getById(id);
   if (!article) return { title: 'Статья | #iLoveThisGame', description: 'Статья о футболе' };
   return {
     title: `${article.title} | #iLoveThisGame`,
@@ -26,7 +26,7 @@ const ArticlePage = async ({ params }: ArticlePageProps) => {
 
   await queryClient.prefetchQuery({
     queryKey: getArticleQueryKeys(id),
-    queryFn: () => cachedArticlesApi.getById(id),
+    queryFn: () => articlesApi.getById(id),
   });
 
   return (

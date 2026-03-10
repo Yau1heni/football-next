@@ -6,7 +6,6 @@ import { ReactionButtons } from '@components/reaction-buttons';
 import { Typography } from '@components/ui/typography';
 import { DEFAULT_ARTICLE_IMAGE } from '@constants/images';
 import { RU_VIEW } from '@constants/plural-forms';
-import { useAuthContext } from '@contexts/auth';
 import { useArticleUserReactionQuery, useSetArticleReactionMutation } from '@queries/article';
 import type { Article } from '@shared-types/articles.types';
 import { REACTION } from '@shared-types/articles.types';
@@ -21,11 +20,10 @@ import { ArticleDetailTags } from './article-detail-tags';
 
 type ArticleDetailProps = {
   article: Article;
+  userId: string;
 };
 
-export const ArticleDetail: FC<ArticleDetailProps> = ({ article }) => {
-  const { user } = useAuthContext();
-  const userId = user?.uid ?? '';
+export const ArticleDetail: FC<ArticleDetailProps> = ({ article, userId }) => {
   const { data: userReaction } = useArticleUserReactionQuery(article.id, userId);
   const setReaction = useSetArticleReactionMutation();
 

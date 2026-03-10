@@ -8,8 +8,15 @@ import { useArticlesList } from './use-articles-list-virtual';
 import { VirtualArticleItem } from './virtual-article-item';
 
 export const ArticlesList: FC = () => {
-  const { articles, rowVirtualizer, sentinelRef, scrollMargin, isError, isLoading, hasNextPage } =
-    useArticlesList();
+  const {
+    articles,
+    rowVirtualizer,
+    sentinelRef,
+    scrollMargin,
+    isError,
+    isLoading,
+    hasNextPage,
+  } = useArticlesList();
 
   if (isError) {
     return <StateMessage variant={'error'} title={'Ошибка загрузки статей'} />;

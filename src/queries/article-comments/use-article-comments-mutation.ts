@@ -1,5 +1,6 @@
 import { articlesApi, type GetCommentsResult } from '@api/articles-api';
 import { getArticleQueryKeys } from '@queries/article/keys';
+import { getArticlesQueryKeys } from '@queries/articles';
 import type { ArticleComment, Reaction, ReactionType } from '@shared-types/articles.types';
 import type { InfiniteData } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -117,6 +118,7 @@ export const useAddArticleCommentMutation = () => {
 
     onSettled: (_data, _error, variables) => {
       queryClient.invalidateQueries({ queryKey: getArticleQueryKeys(variables.articleId) });
+      queryClient.invalidateQueries({ queryKey: getArticlesQueryKeys() });
     },
   });
 };

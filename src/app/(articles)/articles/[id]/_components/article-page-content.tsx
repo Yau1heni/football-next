@@ -3,6 +3,8 @@
 import { PageTitle } from '@components/page-title';
 import { StateMessage } from '@components/state-message';
 import { ArticleCommentsProvider } from '@contexts/article-comments';
+import { useAuthContext } from '@contexts/auth';
+import { useRecordArticleView } from '@hooks/use-record-article-view';
 import { useArticleQuery } from '@queries/article';
 import type { FC } from 'react';
 
@@ -14,7 +16,11 @@ type ArticlePageContentProps = {
 };
 
 export const ArticlePageContent: FC<ArticlePageContentProps> = ({ id }) => {
+  const { user } = useAuthContext();
+  const userId = user?.uid ?? '';
   const { data: article } = useArticleQuery(id);
+
+  useRecordArticleView(id, userId);
 
   if (!article) {
     return <StateMessage variant={'empty'} title={'Статья не найдена'} />;
@@ -23,7 +29,7 @@ export const ArticlePageContent: FC<ArticlePageContentProps> = ({ id }) => {
   return (
     <>
       <PageTitle title={article.title} showBack />
-      <ArticleDetail article={article} />
+      <ArticleDetail article={article} userId={userId} />
       <ArticleCommentsProvider articleId={id}>
         <ArticleComments />
       </ArticleCommentsProvider>

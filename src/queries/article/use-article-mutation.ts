@@ -1,4 +1,5 @@
 import { articlesApi } from '@api/articles-api';
+import { getArticlesQueryKeys } from '@queries/articles';
 import type { Article, Reaction, ReactionType } from '@shared-types/articles.types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { calculateReactionDelta } from '@utils/calculate-reaction-delta';
@@ -67,6 +68,7 @@ export const useSetArticleReactionMutation = () => {
       queryClient.invalidateQueries({
         queryKey: getArticleUserReactionQueryKeys(variables.articleId, variables.userId),
       });
+      queryClient.invalidateQueries({ queryKey: getArticlesQueryKeys() });
     },
   });
 };
