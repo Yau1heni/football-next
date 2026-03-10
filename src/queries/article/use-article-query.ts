@@ -1,5 +1,4 @@
 import { articlesApi } from '@api/articles-api';
-import { STALE_TIME_MS } from '@constants/queries';
 import { useQuery } from '@tanstack/react-query';
 
 import {
@@ -13,7 +12,6 @@ export const useArticleQuery = (articleId: string) =>
     queryKey: getArticleQueryKeys(articleId),
     enabled: !!articleId,
     queryFn: () => articlesApi.getById(articleId),
-    staleTime: STALE_TIME_MS,
     throwOnError: true,
   });
 
@@ -22,7 +20,6 @@ export const useArticleUserReactionQuery = (articleId: string, userId: string) =
     queryKey: getArticleUserReactionQueryKeys(articleId, userId),
     enabled: !!articleId && !!userId,
     queryFn: () => articlesApi.getUserReactionById(articleId, userId),
-    staleTime: STALE_TIME_MS,
   });
 
 export const useArticleLastViewDateQuery = (articleId: string, userId: string) =>
@@ -30,5 +27,4 @@ export const useArticleLastViewDateQuery = (articleId: string, userId: string) =
     queryKey: getArticleLastViewDateQueryKeys(articleId, userId),
     enabled: !!articleId && !!userId,
     queryFn: () => articlesApi.getLastViewDate(userId, articleId),
-    staleTime: STALE_TIME_MS,
   });

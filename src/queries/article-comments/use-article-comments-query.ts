@@ -1,5 +1,4 @@
 import { articlesApi, COMMENTS_PAGE_SIZE } from '@api/articles-api';
-import { STALE_TIME_MS } from '@constants/queries';
 import type { ArticleComment } from '@shared-types/articles.types';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import type { QueryDocumentSnapshot } from 'firebase/firestore';
@@ -13,7 +12,6 @@ export const useArticleCommentsQuery = (articleId: string) =>
     initialPageParam: undefined as QueryDocumentSnapshot<ArticleComment> | undefined,
     getNextPageParam: (lastPage) => (lastPage.hasMore ? lastPage.lastDoc : undefined),
     enabled: !!articleId,
-    staleTime: STALE_TIME_MS,
   });
 
 export const useArticleCommentsReactionQuery = (
@@ -25,5 +23,4 @@ export const useArticleCommentsReactionQuery = (
     queryKey: getArticleCommentsReactionQueryKeys(articleId, commentId, userId),
     enabled: !!articleId && !!userId && !!commentId,
     queryFn: () => articlesApi.getUserReactionByCommentId(articleId, commentId, userId),
-    staleTime: STALE_TIME_MS,
   });
