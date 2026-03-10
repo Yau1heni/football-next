@@ -26,5 +26,5 @@ export const useRecordArticleView = (articleId: string, userId: string) => {
     }
     hasAttemptedRef.current = true;
     recordView.mutate({ articleId, userId });
-  }, [articleId, userId, isSuccess, lastViewDate, recordView.mutate, recordView.isPending]);
+  }, [articleId, userId, isSuccess, lastViewDate, recordView.mutate, recordView.isPending, recordView]);
 };
