@@ -6,6 +6,7 @@ import { useFavoritesContext } from '@contexts/favorites';
 import type { GetClubsTypesenseOptions } from '@shared-types/clubs.types';
 import { type FilterOption, getOptionByKey, getSelectedOptions } from '@utils/filter-options';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTransition } from 'react';
 
 import { CLUB_COUNTRIES_OPTIONS, getClubsSortOptions } from './clubs-filters';
 import { getClubsQueryOptionsFromSearchParams } from './get-clubs-query-options';
@@ -14,10 +15,13 @@ export const useClubsFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { favoriteIds } = useFavoritesContext();
+  const [isPending, startTransition] = useTransition();
 
   const setSearchParams = (updater: (prev: URLSearchParams) => URLSearchParams) => {
     const next = updater(new URLSearchParams(searchParams.toString()));
-    router.replace(`?${next.toString()}`);
+    startTransition(() => {
+      router.replace(`?${next.toString()}`);
+    });
   };
 
   const applySearch = (value: string) => {
@@ -109,5 +113,6 @@ export const useClubsFilters = () => {
     setCountriesOptions,
     setFavoritesOnly,
     resetFilters,
+    isPending,
   };
 };

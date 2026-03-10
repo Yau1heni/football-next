@@ -22,9 +22,12 @@ export const ClubsPageContent = () => {
     setFavoritesOnly,
     applySearch,
     resetFilters,
+    isPending,
   } = useClubsFilters();
   const { data, isLoading, isError } = useClubsQuery(queryOptions);
   const { favoriteIds, isFavoritesLoading, toggleFavorite, loadingClubId } = useFavoritesContext();
+
+  const isListLoading = isPending || isLoading || isFavoritesLoading;
 
   return (
     <>
@@ -42,7 +45,7 @@ export const ClubsPageContent = () => {
       />
       <ClubsList
         clubs={data?.clubsData ?? []}
-        isLoading={isLoading || isFavoritesLoading}
+        isLoading={isListLoading}
         isError={isError}
         favoriteIds={favoriteIds}
         onToggleFavoriteAction={toggleFavorite}
