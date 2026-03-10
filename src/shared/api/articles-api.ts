@@ -37,6 +37,7 @@ import { reactionsApi } from './reactions-api';
 const ARTICLES_PATH = ARTICLES_COLLECTIONS.PATH;
 const REACTIONS_PATH = ARTICLES_COLLECTIONS.SUBCOLLECTIONS.REACTIONS;
 const COMMENTS_PATH = ARTICLES_COLLECTIONS.SUBCOLLECTIONS.COMMENTS;
+const VIEWS_PATH = ARTICLES_COLLECTIONS.SUBCOLLECTIONS.VIEWS;
 
 export const ARTICLES_PAGE_SIZE = 5;
 export const COMMENTS_PAGE_SIZE = 10;
@@ -265,5 +266,29 @@ export const articlesApi = {
 
     await batch.commit();
     return commentId;
+  },
+
+  async getLastViewDate(userId: string, articleId: string): Promise<number | null> {
+    const viewRef = doc(db, ARTICLES_PATH, articleId, VIEWS_PATH, userId);
+    const snap = await getDoc(viewRef);
+    if (!snap.exists()) return null;
+
+    const date = snap.data()?.lastViewDate;
+    if (
+      date &&
+      typeof date === 'object' &&
+      'toMillis' in date &&
+      typeof date.toMillis === 'function'
+    ) {
+      return date.toMillis();
+    }
+    return null;
+  },
+
+  async recordView(userId: string, articleId: string): Promise<void> {
+    const viewRef = doc(db, ARTICLES_PATH, articleId, VIEWS_PATH, userId);
+    const articleRef = doc(db, ARTICLES_PATH, articleId);
+    await setDoc(viewRef, { lastViewDate: serverTimestamp() });
+    await updateDoc(articleRef, { viewsCount: increment(1) });
   },
 };

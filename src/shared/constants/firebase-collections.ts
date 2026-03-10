@@ -33,5 +33,6 @@ export const ARTICLES_COLLECTIONS = {
   SUBCOLLECTIONS: {
     REACTIONS: 'reactions',
     COMMENTS: 'comments',
+    VIEWS: 'views',
   },
 } as const;
