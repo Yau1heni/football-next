@@ -1,6 +1,10 @@
 @use '@styles/variables' as *;
+@use '@styles/mixins' as *;
 
 .clubTrophyItem {
+  flex: 1 1 0;
+  min-width: 128px;
+  max-width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,6 +20,12 @@
   &:hover {
     box-shadow: 0 4px 12px rgba(81, 133, 129, 0.15);
     border-color: rgba(81, 133, 129, 0.3);
+  }
+
+  @include mobile {
+    flex: 1 1 100%;
+    min-width: 0;
+    max-width: none;
   }
 }
 
@@ -33,7 +43,3 @@
   gap: $space-xs;
 }
 
-.trophyCount {
-  font-size: 2rem;
-  line-height: 1;
-}

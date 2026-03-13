@@ -4,8 +4,5 @@
   display: flex;
   flex-wrap: wrap;
   gap: $space-m;
-
-  .trophyBlock {
-    flex-shrink: 0;
-  }
+  width: 100%;
 }

@@ -1,5 +1,3 @@
-'use client';
-
 import { CupIcon } from '@components/ui/icons';
 import { Typography } from '@components/ui/typography';
 import type { FC } from 'react';
@@ -16,7 +14,7 @@ export const ClubTrophyItem: FC<ClubTrophyItemProps> = ({ trophy }) => (
       {trophy.name}
     </Typography>
     <div className={styles.trophy}>
-      <Typography className={styles.trophyCount} weight={'bold'} color={'accent'}>
+      <Typography weight={'bold'} color={'accent'}>
         {trophy.count}
       </Typography>
       <CupIcon />
