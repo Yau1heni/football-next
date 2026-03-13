@@ -22,6 +22,10 @@ export const BurgerMenu: FC<BurgerMenuProps> = ({ children }) => {
     if (e.target === e.currentTarget) close();
   };
 
+  const handlePanelBodyClick = (e: MouseEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).closest('a')) close();
+  };
+
   const panel = (
     <>
       <div
@@ -49,7 +53,9 @@ export const BurgerMenu: FC<BurgerMenuProps> = ({ children }) => {
             <CloseIcon />
           </Button>
         </div>
-        <div className={styles.panelBody}>{children}</div>
+        <div className={styles.panelBody} onClick={handlePanelBodyClick}>
+          {children}
+        </div>
       </div>
     </>
   );
