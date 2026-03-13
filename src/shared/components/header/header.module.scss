@@ -1,0 +1,60 @@
+@use '@styles/variables.scss' as *;
+@use '@styles/mixins.scss' as *;
+
+.header {
+  width: 100%;
+  background-color: $color-surface;
+
+  .headerContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-xl;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: $space-l;
+
+    @include laptop {
+      gap: $space-xxs;
+    }
+  }
+
+  .desktopNav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    @include tablet {
+      display: none;
+    }
+  }
+
+  .headerRight {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .desktopControls {
+    display: flex;
+    align-items: center;
+    gap: $space-m;
+    flex-shrink: 0;
+
+    @include tablet {
+      display: none;
+    }
+  }
+
+  .burgerMenuControls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: $space-m;
+    border-top: 1px solid $color-grey;
+  }
+}

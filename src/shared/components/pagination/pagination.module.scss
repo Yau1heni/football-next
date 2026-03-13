@@ -1,0 +1,40 @@
+@use '@styles/variables' as *;
+@use '@styles/mixins' as *;
+
+.pagination {
+  display: flex;
+  gap: $space-xxs;
+  align-items: center;
+  justify-content: center;
+  padding: $space-xs 0;
+}
+
+.arrowButton {
+  color: $color-primary;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.paginationItems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xxs;
+
+  .paginationItem {
+    padding: 8px 12px;
+    background-color: transparent;
+    color: $color-dark;
+  }
+
+  .active {
+    background-color: $color-primary;
+  }
+
+  .dots {
+    cursor: default;
+    background-color: transparent;
+    border: none;
+  }
+}

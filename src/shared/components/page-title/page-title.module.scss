@@ -1,0 +1,22 @@
+@use '@styles/variables' as *;
+@use '@styles/mixins' as *;
+
+.pageTitle {
+  display: flex;
+  align-items: center;
+  gap: $space-m;
+
+  .goBack {
+    flex-shrink: 0;
+  }
+
+  .title {
+    font-size: $font-size-title;
+    line-height: 109%;
+
+    @include mobile {
+      font-size: $font-size-xl;
+      gap: $space-xs;
+    }
+  }
+}

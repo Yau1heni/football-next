@@ -1,0 +1,25 @@
+'use client';
+
+import { Typography } from '@components/ui/typography';
+import type { FC, PropsWithChildren } from 'react';
+
+import styles from './auth-container.module.scss';
+
+type AuthContainerProps = {
+  title: string;
+  /** Уникальный id для заголовка (для aria-labelledby) */
+  titleId?: string;
+} & PropsWithChildren;
+
+export const AuthContainer: FC<AuthContainerProps> = (props) => {
+  const { children, title, titleId } = props;
+
+  return (
+    <section className={styles.authContainer} aria-labelledby={titleId}>
+      <Typography id={titleId} tag="h1" className={styles.title} color="accent" view="p-20">
+        {title}
+      </Typography>
+      {children}
+    </section>
+  );
+};

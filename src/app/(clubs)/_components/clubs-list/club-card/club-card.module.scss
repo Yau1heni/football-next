@@ -1,0 +1,17 @@
+@use '@styles/mixins' as *;
+
+$action-button-min-height: 54px;
+
+.clubCard {
+  flex: 0 1 min(350px, 100%);
+  min-width: 0;
+
+  @include tablet {
+    flex: 1 1 100%;
+  }
+
+  .actionSlot {
+    width: 100%;
+    min-height: $action-button-min-height;
+  }
+}

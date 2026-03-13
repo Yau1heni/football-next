@@ -1,0 +1,15 @@
+@use '@styles/variables' as *;
+
+$card-min-width: 260px;
+
+.clubsList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($card-min-width, 1fr));
+    gap: $space-xl;
+  }
+}

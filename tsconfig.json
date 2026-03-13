@@ -30,7 +30,7 @@
       "@hooks*": ["./src/shared/hooks*"],
       "@providers*": ["./src/shared/providers*"],
       "@styles*": ["./src/shared/styles*"],
-      "@types*": ["./src/shared/types*"],
+      "@shared-types*": ["./src/shared/types*"],
       "@utils*": ["./src/shared/utils*"]
     }
   },

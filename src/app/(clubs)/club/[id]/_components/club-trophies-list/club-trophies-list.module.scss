@@ -1,0 +1,11 @@
+@use '@styles/variables' as *;
+
+.clubTrophiesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-m;
+
+  .trophyBlock {
+    flex-shrink: 0;
+  }
+}

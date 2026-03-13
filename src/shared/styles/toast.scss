@@ -1,0 +1,11 @@
+// Переопределение Toastify (фон и текст тостов по теме)
+
+:root {
+  --toastify-color-light: var(--color-surface);
+  --toastify-text-color-light: var(--color-text);
+  --toastify-color-dark: var(--color-surface);
+  --toastify-text-color-dark: var(--color-text);
+  --toastify-toast-background: var(--color-surface);
+  --toastify-color-progress-light: var(--color-primary);
+  --toastify-color-progress-dark: var(--color-primary);
+}

@@ -1,0 +1,18 @@
+export { ArrowDownIcon } from './arrow-down-icon';
+export { ArrowLeftIcon } from './arrow-left-icon';
+export { ArrowRightIcon } from './arrow-right-icon';
+export { CloseIcon } from './close-icon';
+export { CupIcon } from './cup-icon';
+export { DislikeIcon } from './dislike-icon';
+export { EmptyIcon } from './empty-icon';
+export { ErrorIcon } from './error-icon';
+export { EyeIcon } from './eye-icon';
+export { EyeOffIcon } from './eye-off-icon';
+export { GithubIcon } from './github-icon';
+export { GoogleIcon } from './google-icon';
+export { HeartIcon } from './heart-icon';
+export type { IconProps } from './icon';
+export { LikeIcon } from './like-icon';
+export { MoonIcon } from './moon-icon';
+export { InstagramIcon, SocialDefaultIcon, TgIcon, VkIcon, YoutubeIcon } from './social-icons';
+export { SunIcon } from './sun-icon';

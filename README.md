@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Football App (#iLoveThisGame)
 
-## Getting Started
+Веб-приложение о футболе на Next.js — каталог клубов с поиском и избранным, лента статей с комментариями и реакциями, авторизация через Firebase (в том числе OAuth).
 
-First, run the development server:
+---
+
+## Запуск проекта
+
+### Требования
+
+- Node.js 20+
+- Рекомендуемый пакетный менеджер: **yarn** (при желании можно использовать npm или pnpm)
+
+### Установка и запуск
 
 ```bash
-npm run dev
-# or
+# Установка зависимостей (рекомендуется)
+yarn install
+
+# Режим разработки
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# при использовании npm
+# npm install
+# npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Приложение будет доступно по адресу [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Сборка и продакшен
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+yarn build
+yarn start
+```
 
-## Learn More
+### Линтинг и форматирование
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+yarn lint
+yarn lint:fix
+yarn format
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Основные фичи
 
-## Deploy on Vercel
+- **Клубы:** список с поиском и фильтрами (Typesense), карточка клуба (описание, трофеи, соцсети), избранные клубы (локально + Firestore).
+- **Статьи:** лента с пагинацией и виртуализацией, страница статьи с просмотрами, тегами, лайками/дизлайками, комментариями (добавление, ответы, виртуальный список).
+- **Авторизация:** вход/регистрация (email + пароль), OAuth (Google, GitHub и др.), защищённые маршруты.
+- **UI/UX:** тёмная/светлая тема, адаптивная шапка с бургер-меню, тосты, скелетоны загрузки, обработка ошибок и 404.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Структура папок
+
+```
+src/
+├── app/                          # Next.js App Router
+│   ├── (articles)/               # Роуты статей
+│   │   └── articles/
+│   │       ├── [id]/             # Страница статьи, комментарии
+│   │       └── _components/      # Компоненты страниц статей
+│   ├── (auth)/                   # Роуты авторизации
+│   │   ├── login/
+│   │   └── register/
+│   ├── (clubs)/                  # Роуты клубов
+│   │   ├── club/[id]/            # Страница клуба
+│   │   └── _components/          # Списки клубов, фильтры
+│   ├── layout.tsx
+│   ├── error.tsx
+│   └── not-found.tsx
+├── shared/                       # Общий код
+│   ├── api/                      # Работа с Firebase, Typesense
+│   ├── components/               # UI и переиспользуемые компоненты
+│   ├── configs/                  # Конфиги (Firebase, Typesense, TanStack Query)
+│   ├── constants/
+│   ├── contexts/                 # Auth, Theme, Favorites, Article comments
+│   ├── hooks/
+│   ├── providers/
+│   ├── styles/
+│   ├── types/
+│   └── utils/
+└── queries/                      # TanStack Query: хуки и ключи
+    ├── article/
+    ├── articles/
+    ├── article-comments/
+    ├── auth/
+    ├── club/
+    ├── clubs/
+    └── favorites/
+```
+
+## Основные технологии
+
+- **Next.js 16** (App Router, React 19)
+- **TypeScript**
+- **Firebase** — авторизация (в т.ч. OAuth), Firestore (статьи, комментарии, реакции, избранное)
+- **Typesense** — поиск и фильтрация клубов
+- **TanStack React Query** — кэш и запросы на клиенте и при prefetch
+- **TanStack React Virtual** — виртуализация списков (статьи, комментарии)
+- **SASS** (модули) — стили
+- **react-toastify** — уведомления
+- **ESLint, Prettier** — линтинг и форматирование
+
+---
+
