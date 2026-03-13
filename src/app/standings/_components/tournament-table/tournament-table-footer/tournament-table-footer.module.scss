@@ -1,0 +1,45 @@
+@use '@styles/variables.scss' as *;
+@use '@styles/mixins.scss' as *;
+
+.footerLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xxs $space-xs;
+}
+
+.formLegend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-xxs $space-xs;
+  width: 100%;
+}
+
+.formLegendDots {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-xxs $space-s;
+}
+
+.formLegendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xxs;
+}
+
+.formLegendSep {
+  margin-right: $space-xxs;
+}
+
+.hideMobile {
+  @include mobile {
+    display: none;
+  }
+}
+
+.hideTablet {
+  @include tablet {
+    display: none;
+  }
+}

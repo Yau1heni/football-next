@@ -3,6 +3,7 @@
 import { Button } from '@components/ui/button';
 import { ArrowRightIcon } from '@components/ui/icons';
 import { Typography } from '@components/ui/typography';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 
@@ -13,9 +14,12 @@ type PageTitleProps = {
   title?: string;
   teamColors?: string[];
   showBack?: boolean;
+  flag?: string | null;
 };
 
-export const PageTitle: FC<PageTitleProps> = ({ title, teamColors = [], showBack }) => {
+export const PageTitle: FC<PageTitleProps> = (props) => {
+  const { title, teamColors = [], flag, showBack } = props;
+
   const router = useRouter();
   return (
     <div className={styles.pageTitle}>
@@ -41,6 +45,7 @@ export const PageTitle: FC<PageTitleProps> = ({ title, teamColors = [], showBack
         </Typography>
       )}
       {teamColors.length > 0 && <ColoredDots colors={teamColors} />}
+      {flag && <Image src={flag} alt={'flag'} width={64} height={64} loading={'eager'} />}
     </div>
   );
 };
