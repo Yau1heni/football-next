@@ -211,12 +211,22 @@ export const useTacticsBoard = () => {
     moveAllToBench();
   }, [moveAllToBench]);
 
+  /** Применить сохранённую тактику: формация и расстановка игроков. */
+  const applySavedTacticsAction = useCallback(
+    (nextFormationId: string, nextPlayers: PlayerOnBoard[]) => {
+      setFormationId(nextFormationId);
+      setPlayers(nextPlayers);
+    },
+    []
+  );
+
   const hasPlayersOnField = players.some((p) => p.position != null);
 
   return {
     players,
     formationId,
     setFormationId,
+    applySavedTacticsAction,
     moveAllToBench,
     slots,
     occupiedSlots,

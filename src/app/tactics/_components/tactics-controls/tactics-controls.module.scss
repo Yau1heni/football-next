@@ -76,6 +76,11 @@
   box-shadow: 0 0 0 2px $color-primary;
 }
 
+.saveNameInput {
+  min-width: 160px;
+  max-width: 220px;
+}
+
 @media (max-width: 600px) {
   .wrap {
     gap: $space-s $space-m;

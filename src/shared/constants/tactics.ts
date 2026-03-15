@@ -7,6 +7,12 @@ import type {
 /** Количество игроков в выборе (основной состав + запасные) */
 export const TACTICS_ROSTER_SIZE = 15;
 
+/** Минимум игроков на поле для сохранения схемы */
+export const MIN_PLAYERS_ON_FIELD_TO_SAVE = 11;
+
+/** Максимальное количество сохранённых схем у пользователя */
+export const MAX_SAVED_TACTICS = 5;
+
 /** Множитель перевода доли (0–1) в проценты (0–100) для координат на поле */
 export const RATIO_TO_PERCENT_FACTOR = 100;
 

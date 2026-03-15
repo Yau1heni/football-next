@@ -1,19 +1,14 @@
 'use client';
 
 import { STROKE_COLOR_HEX } from '@constants/tactics';
-import type { DrawingStrokeColor } from '@shared-types/tactics.types';
+import type { DrawingPoint, DrawingStroke, DrawingStrokeColor } from '@shared-types/tactics.types';
 import type { FC } from 'react';
 
 import styles from './field-drawing-overlay.module.scss';
 import { pointsToPath } from './field-drawing-overlay.utils';
 import { useFieldDrawingOverlay } from './use-field-drawing-overlay';
 
-export type DrawingPoint = { x: number; y: number };
-
-export type DrawingStroke = {
-  points: DrawingPoint[];
-  color: DrawingStrokeColor;
-};
+export type { DrawingPoint, DrawingStroke } from '@shared-types/tactics.types';
 
 type FieldDrawingOverlayProps = {
   isDrawMode: boolean;

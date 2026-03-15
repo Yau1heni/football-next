@@ -6,6 +6,7 @@ import { useClient } from '@hooks/use-client';
 import { noop } from '@tanstack/react-query';
 import type { FC } from 'react';
 
+import { useSaveTacticsForm } from '../../_hooks/use-save-tactics-form';
 import { useTacticsBoard } from '../../_hooks/use-tactics-board';
 import { useTacticsDndState } from '../../_hooks/use-tactics-dnd-state';
 import { useTacticsDrawing } from '../../_hooks/use-tactics-drawing';
@@ -15,13 +16,21 @@ import { useTacticsViewMode } from '../../_hooks/use-tactics-view-mode';
 import { FieldContainer, FieldSvg } from '../field';
 import { PlayerJersey } from '../players';
 import { PlayersBench } from '../players';
-import { TacticsControls } from '../tactics-controls';
+import { SavedTacticsSection } from '../saved-tactics-section';
+import {
+  TacticsControlsBar,
+  TacticsDrawingTools,
+  TacticsFormationPicker,
+  TacticsLineupActions,
+  TacticsSaveSection,
+  TacticsStrokeColorPicker,
+  TacticsViewModeSwitch,
+} from '../tactics-controls';
 import { TacticsField } from '../tactics-field';
 
 export const TacticsPageContent: FC = () => {
   const { isClient } = useClient();
 
-  const board = useTacticsBoard();
   const {
     players,
     formationId,
@@ -35,7 +44,9 @@ export const TacticsPageContent: FC = () => {
     handleDragEnd,
     onFormationChangeAction,
     onResetLineupAction,
-  } = board;
+    applySavedTacticsAction,
+    hasPlayersOnField,
+  } = useTacticsBoard();
 
   const dnd = useTacticsDndState(players, handleDragStart, handleDragEnd);
 
@@ -58,26 +69,48 @@ export const TacticsPageContent: FC = () => {
   const viewMode = useTacticsViewMode();
   const drawing = useTacticsDrawing();
 
+  const saveForm = useSaveTacticsForm({
+    players,
+    formationId,
+    drawingStrokes: drawing.drawingStrokes,
+  });
+
   if (!isClient) {
     return (
       <>
         <PageTitle title="Тактическая доска" showBack />
-        <TacticsControls
-          formationId={formationId}
-          onFormationChangeAction={onFormationChangeAction}
-          viewMode="drag"
-          onViewModeChangeAction={noop}
-          strokeColor="white"
-          onStrokeColorChangeAction={noop}
-          hasStrokes={false}
-          onClearDrawingAction={noop}
-          canUndo={false}
-          onUndoStrokeAction={noop}
-          canRedo={false}
-          onRedoStrokeAction={noop}
-          hasPlayersOnField={false}
-          onResetLineupAction={noop}
-        />
+        <TacticsControlsBar>
+          <TacticsFormationPicker
+            formationId={formationId}
+            onFormationChangeAction={onFormationChangeAction}
+          />
+          <TacticsViewModeSwitch viewMode="drag" onViewModeChangeAction={noop} />
+          <TacticsStrokeColorPicker
+            strokeColor="white"
+            onStrokeColorChangeAction={noop}
+            isDrawMode={false}
+          />
+          <TacticsDrawingTools
+            isDrawMode={false}
+            hasStrokes={false}
+            onClearDrawingAction={noop}
+            canUndo={false}
+            onUndoStrokeAction={noop}
+            canRedo={false}
+            onRedoStrokeAction={noop}
+          />
+          <TacticsLineupActions hasPlayersOnField={false} onResetLineupAction={noop} />
+          <TacticsSaveSection
+            canSaveTactics={false}
+            showSaveForm={false}
+            saveName=""
+            onSaveNameChangeAction={noop}
+            onSaveClickAction={noop}
+            onSaveSubmitAction={noop}
+            onSaveCancelAction={noop}
+            isSavePending={false}
+          />
+        </TacticsControlsBar>
         <FieldContainer>
           <FieldSvg />
         </FieldContainer>
@@ -88,22 +121,48 @@ export const TacticsPageContent: FC = () => {
   return (
     <>
       <PageTitle title="Тактическая доска" showBack />
-      <TacticsControls
-        formationId={formationId}
-        onFormationChangeAction={onFormationChangeAction}
-        viewMode={viewMode.viewMode}
-        onViewModeChangeAction={viewMode.onViewModeChangeAction}
-        strokeColor={drawing.strokeColor}
-        onStrokeColorChangeAction={drawing.setStrokeColor}
-        hasStrokes={drawing.hasStrokes}
-        onClearDrawingAction={drawing.onClearDrawingAction}
-        canUndo={drawing.canUndo}
-        onUndoStrokeAction={drawing.onUndoStrokeAction}
-        canRedo={drawing.canRedo}
-        onRedoStrokeAction={drawing.onRedoStrokeAction}
-        hasPlayersOnField={board.hasPlayersOnField}
-        onResetLineupAction={onResetLineupAction}
+      <SavedTacticsSection
+        applySavedTacticsAction={applySavedTacticsAction}
+        loadDrawingStrokesAction={drawing.loadDrawingStrokesAction}
       />
+      <TacticsControlsBar>
+        <TacticsFormationPicker
+          formationId={formationId}
+          onFormationChangeAction={onFormationChangeAction}
+        />
+        <TacticsViewModeSwitch
+          viewMode={viewMode.viewMode}
+          onViewModeChangeAction={viewMode.onViewModeChangeAction}
+        />
+        <TacticsStrokeColorPicker
+          strokeColor={drawing.strokeColor}
+          onStrokeColorChangeAction={drawing.setStrokeColor}
+          isDrawMode={viewMode.isDrawMode}
+        />
+        <TacticsDrawingTools
+          isDrawMode={viewMode.isDrawMode}
+          hasStrokes={drawing.hasStrokes}
+          onClearDrawingAction={drawing.onClearDrawingAction}
+          canUndo={drawing.canUndo}
+          onUndoStrokeAction={drawing.onUndoStrokeAction}
+          canRedo={drawing.canRedo}
+          onRedoStrokeAction={drawing.onRedoStrokeAction}
+        />
+        <TacticsLineupActions
+          hasPlayersOnField={hasPlayersOnField}
+          onResetLineupAction={onResetLineupAction}
+        />
+        <TacticsSaveSection
+          canSaveTactics={saveForm.canSaveTactics}
+          showSaveForm={saveForm.showSaveForm}
+          saveName={saveForm.saveName}
+          onSaveNameChangeAction={saveForm.setSaveName}
+          onSaveClickAction={saveForm.onSaveClickAction}
+          onSaveSubmitAction={saveForm.onSaveSubmitAction}
+          onSaveCancelAction={saveForm.onSaveCancelAction}
+          isSavePending={saveForm.isSavePending}
+        />
+      </TacticsControlsBar>
       <DndContext
         sensors={sensors}
         onDragStart={dnd.onDragStart}

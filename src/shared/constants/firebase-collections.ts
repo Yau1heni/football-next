@@ -14,6 +14,7 @@ export const USERS_COLLECTIONS = {
   PATH: 'users',
   SUBCOLLECTIONS: {
     FAVORITES: 'favorites',
+    TACTICS: 'tactics',
   },
 } as const;
 

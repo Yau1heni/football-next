@@ -1,12 +1,7 @@
 'use client';
 
+import type { DrawingPoint, DrawingStroke, DrawingStrokeColor } from '@shared-types/tactics.types';
 import { useCallback, useState } from 'react';
-
-import type {
-  DrawingPoint,
-  DrawingStroke,
-  DrawingStrokeColor,
-} from '../_components/tactics-field/field-drawing-overlay';
 
 const DEFAULT_STROKE_COLOR: DrawingStrokeColor = 'white';
 
@@ -50,10 +45,17 @@ export const useTacticsDrawing = () => {
     });
   }, []);
 
+  /** Загрузить штрихи из сохранённой тактики (очищает undo/redo). */
+  const loadDrawingStrokesAction = useCallback((strokes: DrawingStroke[]) => {
+    setDrawingStrokes(strokes);
+    setUndoneStrokes([]);
+  }, []);
+
   return {
     strokeColor,
     setStrokeColor,
     drawingStrokes,
+    loadDrawingStrokesAction,
     onDrawingStrokeEnd,
     onClearDrawingAction,
     onUndoStrokeAction,
