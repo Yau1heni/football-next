@@ -1,82 +1,40 @@
 'use client';
 
+import { STROKE_COLOR_HEX } from '@constants/tactics';
+import type { DrawingStrokeColor } from '@shared-types/tactics.types';
 import type { FC } from 'react';
-import { type PointerEvent, useCallback, useRef, useState } from 'react';
 
 import styles from './field-drawing-overlay.module.scss';
+import { pointsToPath } from './field-drawing-overlay.utils';
+import { useFieldDrawingOverlay } from './use-field-drawing-overlay';
 
 export type DrawingPoint = { x: number; y: number };
 
-export type DrawingStroke = DrawingPoint[];
+export type DrawingStroke = {
+  points: DrawingPoint[];
+  color: DrawingStrokeColor;
+};
 
 type FieldDrawingOverlayProps = {
   isDrawMode: boolean;
   strokes: DrawingStroke[];
-  onStrokeEndAction: (stroke: DrawingStroke) => void;
-};
-
-const pointsToPath = (points: DrawingPoint[]): string => {
-  if (points.length === 0) return '';
-  const [first, ...rest] = points;
-  const restPath = rest.map((p) => `L ${p.x} ${p.y}`).join(' ');
-  return `M ${first.x} ${first.y} ${restPath}`;
+  currentStrokeColor: DrawingStrokeColor;
+  onStrokeEndAction: (points: DrawingPoint[]) => void;
 };
 
 export const FieldDrawingOverlay: FC<FieldDrawingOverlayProps> = (props) => {
-  const { isDrawMode, strokes, onStrokeEndAction } = props;
-  const [currentStroke, setCurrentStroke] = useState<DrawingPoint[]>([]);
-  const overlayRef = useRef<SVGSVGElement>(null);
+  const { isDrawMode, strokes, currentStrokeColor, onStrokeEndAction } = props;
 
-  const clientToPercent = useCallback((clientX: number, clientY: number): DrawingPoint | null => {
-    const el = overlayRef.current;
-    if (!el) return null;
-    const rect = el.getBoundingClientRect();
-    if (rect.width === 0 || rect.height === 0) return null;
-    const x = ((clientX - rect.left) / rect.width) * 100;
-    const y = ((clientY - rect.top) / rect.height) * 100;
-    return { x, y };
-  }, []);
+  const {
+    overlayRef,
+    currentStroke,
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerUp,
+    handlePointerLeave,
+  } = useFieldDrawingOverlay({ isDrawMode, onStrokeEndAction });
 
-  const handlePointerDown = useCallback(
-    (e: PointerEvent<SVGSVGElement>) => {
-      if (!isDrawMode) return;
-      e.preventDefault();
-      const point = clientToPercent(e.clientX, e.clientY);
-      if (point) {
-        setCurrentStroke([point]);
-        (e.target as SVGSVGElement).setPointerCapture?.(e.pointerId);
-      }
-    },
-    [isDrawMode, clientToPercent]
-  );
-
-  const handlePointerMove = useCallback(
-    (e: PointerEvent<SVGSVGElement>) => {
-      if (!isDrawMode || currentStroke.length === 0) return;
-      const point = clientToPercent(e.clientX, e.clientY);
-      if (point) setCurrentStroke((prev) => [...prev, point]);
-    },
-    [isDrawMode, currentStroke.length, clientToPercent]
-  );
-
-  const handlePointerUp = useCallback(
-    (e: React.PointerEvent<SVGSVGElement>) => {
-      if (!isDrawMode) return;
-      (e.target as SVGSVGElement).releasePointerCapture?.(e.pointerId);
-      if (currentStroke.length > 0) {
-        onStrokeEndAction(currentStroke);
-        setCurrentStroke([]);
-      }
-    },
-    [isDrawMode, currentStroke, onStrokeEndAction]
-  );
-
-  const handlePointerLeave = useCallback(() => {
-    if (currentStroke.length > 0) {
-      onStrokeEndAction(currentStroke);
-      setCurrentStroke([]);
-    }
-  }, [currentStroke, onStrokeEndAction]);
+  const currentStrokeColorHex = STROKE_COLOR_HEX[currentStrokeColor];
 
   return (
     <svg
@@ -93,10 +51,19 @@ export const FieldDrawingOverlay: FC<FieldDrawingOverlayProps> = (props) => {
     >
       <g className={styles.strokes}>
         {strokes.map((stroke, i) => (
-          <path key={i} className={styles.stroke} d={pointsToPath(stroke)} />
+          <path
+            key={i}
+            className={styles.stroke}
+            d={pointsToPath(stroke.points)}
+            style={{ stroke: STROKE_COLOR_HEX[stroke.color] }}
+          />
         ))}
         {currentStroke.length > 0 && (
-          <path className={styles.stroke} d={pointsToPath(currentStroke)} />
+          <path
+            className={styles.stroke}
+            d={pointsToPath(currentStroke)}
+            style={{ stroke: currentStrokeColorHex }}
+          />
         )}
       </g>
     </svg>

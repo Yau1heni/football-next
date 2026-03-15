@@ -10,7 +10,12 @@ import type { FC } from 'react';
 
 import { FieldContainer, FieldSvg, FormationSlots } from '../field';
 import { PlayerJersey } from '../players';
-import { type DrawingStroke, FieldDrawingOverlay } from './field-drawing-overlay';
+import {
+  type DrawingPoint,
+  type DrawingStroke,
+  type DrawingStrokeColor,
+  FieldDrawingOverlay,
+} from './field-drawing-overlay';
 import styles from './tactics-field.module.scss';
 import { useTacticsField } from './use-tactics-field';
 
@@ -27,7 +32,8 @@ type TacticsFieldProps = {
   highlightedSlotIndex?: number | null;
   isDrawMode?: boolean;
   drawingStrokes?: DrawingStroke[];
-  onDrawingStrokeEnd?: (stroke: DrawingStroke) => void;
+  strokeColor?: DrawingStrokeColor;
+  onDrawingStrokeEnd?: (points: DrawingPoint[]) => void;
 };
 
 export const TacticsField: FC<TacticsFieldProps> = (props) => {
@@ -42,6 +48,7 @@ export const TacticsField: FC<TacticsFieldProps> = (props) => {
     highlightedSlotIndex,
     isDrawMode = false,
     drawingStrokes = [],
+    strokeColor = 'white',
     onDrawingStrokeEnd,
   } = props;
 
@@ -84,6 +91,7 @@ export const TacticsField: FC<TacticsFieldProps> = (props) => {
       <FieldDrawingOverlay
         isDrawMode={isDrawMode}
         strokes={drawingStrokes}
+        currentStrokeColor={strokeColor}
         onStrokeEndAction={onDrawingStrokeEnd ?? (() => {})}
       />
     </FieldContainer>

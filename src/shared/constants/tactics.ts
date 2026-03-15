@@ -1,4 +1,8 @@
-import type { FormationShape } from '@shared-types/tactics.types';
+import type {
+  DrawingStrokeColor,
+  FormationShape,
+  TacticsViewMode,
+} from '@shared-types/tactics.types';
 
 /** Количество игроков в выборе (основной состав + запасные) */
 export const TACTICS_ROSTER_SIZE = 15;
@@ -65,3 +69,25 @@ export const FORMATIONS: Record<string, FormationShape> = {
 export const DEFAULT_FORMATION_ID = '4-4-2';
 
 export const FORMATION_OPTIONS = Object.keys(FORMATIONS).map((id) => ({ key: id, value: id }));
+
+/** Опции переключателя режима «Расставлять / Рисовать» */
+export const VIEW_MODE_OPTIONS: { value: TacticsViewMode; label: string }[] = [
+  { value: 'drag', label: 'Расставлять' },
+  { value: 'draw', label: 'Рисовать' },
+];
+
+/** Цвета маркера (hex для отображения на зелёном поле) */
+export const STROKE_COLOR_HEX: Record<DrawingStrokeColor, string> = {
+  black: '#1a1a1a',
+  white: '#ffffff',
+  red: '#c62828',
+  green: '#b8e62a',
+};
+
+/** Опции выбора цвета маркера (value + ariaLabel для доступности) */
+export const STROKE_COLOR_OPTIONS: { value: DrawingStrokeColor; ariaLabel: string }[] = [
+  { value: 'black', ariaLabel: 'Черный' },
+  { value: 'white', ariaLabel: 'Белый' },
+  { value: 'red', ariaLabel: 'Красный' },
+  { value: 'green', ariaLabel: 'Зелёный' },
+];

@@ -67,8 +67,15 @@ export const TacticsPageContent: FC = () => {
           onFormationChangeAction={onFormationChangeAction}
           viewMode="drag"
           onViewModeChangeAction={noop}
+          strokeColor="white"
+          onStrokeColorChangeAction={noop}
           hasStrokes={false}
           onClearDrawingAction={noop}
+          canUndo={false}
+          onUndoStrokeAction={noop}
+          canRedo={false}
+          onRedoStrokeAction={noop}
+          hasPlayersOnField={false}
           onResetLineupAction={noop}
         />
         <FieldContainer>
@@ -86,8 +93,15 @@ export const TacticsPageContent: FC = () => {
         onFormationChangeAction={onFormationChangeAction}
         viewMode={viewMode.viewMode}
         onViewModeChangeAction={viewMode.onViewModeChangeAction}
+        strokeColor={drawing.strokeColor}
+        onStrokeColorChangeAction={drawing.setStrokeColor}
         hasStrokes={drawing.hasStrokes}
         onClearDrawingAction={drawing.onClearDrawingAction}
+        canUndo={drawing.canUndo}
+        onUndoStrokeAction={drawing.onUndoStrokeAction}
+        canRedo={drawing.canRedo}
+        onRedoStrokeAction={drawing.onRedoStrokeAction}
+        hasPlayersOnField={board.hasPlayersOnField}
         onResetLineupAction={onResetLineupAction}
       />
       <DndContext
@@ -107,6 +121,7 @@ export const TacticsPageContent: FC = () => {
           highlightedSlotIndex={highlightedSlotIndex}
           isDrawMode={viewMode.isDrawMode}
           drawingStrokes={drawing.drawingStrokes}
+          strokeColor={drawing.strokeColor}
           onDrawingStrokeEnd={drawing.onDrawingStrokeEnd}
         />
         <PlayersBench players={players} dragDisabled={viewMode.isDrawMode} />

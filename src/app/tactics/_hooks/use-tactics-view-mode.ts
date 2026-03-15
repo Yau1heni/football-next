@@ -1,8 +1,7 @@
 'use client';
 
+import type { TacticsViewMode } from '@shared-types/tactics.types';
 import { useCallback, useState } from 'react';
-
-import type { TacticsViewMode } from '../_components/tactics-controls';
 
 /**
  * Режим отображения тактической доски: расставлять игроков или рисовать.

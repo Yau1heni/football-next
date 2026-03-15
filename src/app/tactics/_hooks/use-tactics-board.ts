@@ -211,6 +211,8 @@ export const useTacticsBoard = () => {
     moveAllToBench();
   }, [moveAllToBench]);
 
+  const hasPlayersOnField = players.some((p) => p.position != null);
+
   return {
     players,
     formationId,
@@ -218,6 +220,7 @@ export const useTacticsBoard = () => {
     moveAllToBench,
     slots,
     occupiedSlots,
+    hasPlayersOnField,
     setLastPointer,
     setFieldRect,
     fieldRectRef,

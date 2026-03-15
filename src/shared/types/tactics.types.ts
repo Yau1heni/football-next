@@ -16,3 +16,9 @@ export type FormationSlot = Position;
 
 /** Описание формации: массив слотов по порядку */
 export type FormationShape = FormationSlot[];
+
+/** Режим тактической доски */
+export type TacticsViewMode = 'drag' | 'draw';
+
+/** Цвет штриха рисования */
+export type DrawingStrokeColor = 'black' | 'white' | 'red' | 'green';

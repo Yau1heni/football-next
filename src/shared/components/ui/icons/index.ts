@@ -15,5 +15,7 @@ export type { IconProps } from './icon';
 export { JerseyIcon } from './jersey-icon';
 export { LikeIcon } from './like-icon';
 export { MoonIcon } from './moon-icon';
+export { RedoIcon } from './redo-icon';
 export { InstagramIcon, SocialDefaultIcon, TgIcon, VkIcon, YoutubeIcon } from './social-icons';
 export { SunIcon } from './sun-icon';
+export { UndoIcon } from './undo-icon';
