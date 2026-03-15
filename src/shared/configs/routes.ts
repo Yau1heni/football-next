@@ -27,4 +27,8 @@ export const routes = {
     mask: '/standings',
     create: () => `/standings`,
   },
+  tactics: {
+    mask: '/tactics',
+    create: () => '/tactics',
+  },
 } as const;

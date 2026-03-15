@@ -12,6 +12,7 @@ export { GithubIcon } from './github-icon';
 export { GoogleIcon } from './google-icon';
 export { HeartIcon } from './heart-icon';
 export type { IconProps } from './icon';
+export { JerseyIcon } from './jersey-icon';
 export { LikeIcon } from './like-icon';
 export { MoonIcon } from './moon-icon';
 export { InstagramIcon, SocialDefaultIcon, TgIcon, VkIcon, YoutubeIcon } from './social-icons';
