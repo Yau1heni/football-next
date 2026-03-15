@@ -3,6 +3,9 @@ import type { FormationShape } from '@shared-types/tactics.types';
 /** Количество игроков в выборе (основной состав + запасные) */
 export const TACTICS_ROSTER_SIZE = 15;
 
+/** Множитель перевода доли (0–1) в проценты (0–100) для координат на поле */
+export const RATIO_TO_PERCENT_FACTOR = 100;
+
 /** Формации: id → массив слотов {x,y} в нормализованных координатах 0–100. Ворота слева (вратарь x≈8). */
 export const FORMATIONS: Record<string, FormationShape> = {
   '4-4-2': [

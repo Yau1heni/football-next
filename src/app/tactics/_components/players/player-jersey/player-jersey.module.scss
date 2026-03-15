@@ -1,3 +1,4 @@
+@use '@styles/mixins' as *;
 @use '@styles/variables' as *;
 
 .jersey {
@@ -8,12 +9,18 @@
   width: 40px;
   height: 48px;
   cursor: grab;
-  touch-action: manipulation;
+  /* Тач не уходит в скролл — перетаскивание джерси на мобильном работает */
+  touch-action: none;
   user-select: none;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 
   &:active {
     cursor: grabbing;
+  }
+
+  @include mobile {
+    width: 32px;
+    height: 40px;
   }
 }
 

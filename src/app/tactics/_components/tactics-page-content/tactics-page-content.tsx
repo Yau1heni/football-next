@@ -1,14 +1,7 @@
 'use client';
 
 import { PageTitle } from '@components/page-title';
-import {
-  DndContext,
-  DragOverlay,
-  PointerSensor,
-  TouchSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
+import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { useClient } from '@hooks/use-client';
 import type { FC } from 'react';
 import { useCallback } from 'react';
@@ -16,12 +9,12 @@ import { useCallback } from 'react';
 import { useTacticsBoard } from '../../_hooks/use-tactics-board';
 import { useTacticsDndState } from '../../_hooks/use-tactics-dnd-state';
 import { useTacticsHighlightedSlot } from '../../_hooks/use-tactics-highlighted-slot';
+import { useTacticsMobileDrag } from '../../_hooks/use-tactics-mobile-drag';
 import { FieldContainer, FieldSvg } from '../field';
 import { PlayerJersey } from '../players';
 import { PlayersBench } from '../players';
 import { TacticsControls } from '../tactics-controls';
 import { TacticsField } from '../tactics-field';
-import styles from './tactics-page-content.module.scss';
 
 export const TacticsPageContent: FC = () => {
   const { isClient } = useClient();
@@ -35,6 +28,8 @@ export const TacticsPageContent: FC = () => {
     occupiedSlots,
     setLastPointer,
     setFieldRect,
+    fieldRectRef,
+    lastPointerRef,
     handleDragStart,
     handleDragEnd,
   } = useTacticsBoard();
@@ -58,9 +53,11 @@ export const TacticsPageContent: FC = () => {
     [setFormationId, moveAllToBench]
   );
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 8 } })
+  const { sensors } = useTacticsMobileDrag(
+    dnd.activeId,
+    dnd.setDropPositionPercent,
+    fieldRectRef,
+    lastPointerRef
   );
 
   if (!isClient) {
@@ -71,12 +68,9 @@ export const TacticsPageContent: FC = () => {
           formationId={formationId}
           onFormationChangeAction={onFormationChangeAction}
         />
-        <div className={styles.fieldWrap}>
-          <FieldContainer>
-            <FieldSvg />
-          </FieldContainer>
-        </div>
-        <div className={styles.placeholderBench} aria-hidden />
+        <FieldContainer>
+          <FieldSvg />
+        </FieldContainer>
       </>
     );
   }
@@ -95,18 +89,16 @@ export const TacticsPageContent: FC = () => {
         onDragEnd={dnd.onDragEnd}
       >
         <PlayersBench players={players} />
-        <div className={styles.fieldWrap}>
-          <TacticsField
-            players={players}
-            slots={slots}
-            occupiedSlots={occupiedSlots}
-            showFormationSlots={true}
-            onFieldPointerMoveAction={setLastPointer}
-            onFieldRectChangeAction={setFieldRect}
-            onDropPositionChangeAction={dnd.setDropPositionPercent}
-            highlightedSlotIndex={highlightedSlotIndex}
-          />
-        </div>
+        <TacticsField
+          players={players}
+          slots={slots}
+          occupiedSlots={occupiedSlots}
+          showFormationSlots={true}
+          onFieldPointerMoveAction={setLastPointer}
+          onFieldRectChangeAction={setFieldRect}
+          onDropPositionChangeAction={dnd.setDropPositionPercent}
+          highlightedSlotIndex={highlightedSlotIndex}
+        />
         <DragOverlay dropAnimation={null}>
           {dnd.activePlayer != null ? (
             <div style={{ pointerEvents: 'none' }}>

@@ -1,3 +1,4 @@
+@use '@styles/mixins' as *;
 @use '@styles/variables' as *;
 
 .slots {
@@ -19,6 +20,10 @@
     border-color 0.15s ease,
     background-color 0.15s ease,
     box-shadow 0.15s ease;
+
+  @include mobile {
+    width: 8%;
+  }
 }
 
 .slotHighlighted {

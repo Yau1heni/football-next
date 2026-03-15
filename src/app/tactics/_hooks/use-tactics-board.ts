@@ -1,4 +1,9 @@
-import { DEFAULT_FORMATION_ID, FORMATIONS, TACTICS_ROSTER_SIZE } from '@constants/tactics';
+import {
+  DEFAULT_FORMATION_ID,
+  FORMATIONS,
+  RATIO_TO_PERCENT_FACTOR,
+  TACTICS_ROSTER_SIZE,
+} from '@constants/tactics';
 import type { PlayerOnBoard, Position } from '@shared-types/tactics.types';
 import { findNearestFreeSlotIndex } from '@utils/find-nearest-free-slot';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -102,8 +107,8 @@ export const useTacticsBoard = () => {
     const rect = fieldRectRef.current;
     const ptr = lastPointerRef.current;
     if (!rect || !ptr || rect.width === 0 || rect.height === 0) return null;
-    const x = ((ptr.x - rect.left) / rect.width) * 100;
-    const y = ((ptr.y - rect.top) / rect.height) * 100;
+    const x = ((ptr.x - rect.left) / rect.width) * RATIO_TO_PERCENT_FACTOR;
+    const y = ((ptr.y - rect.top) / rect.height) * RATIO_TO_PERCENT_FACTOR;
     return { x, y };
   }, []);
 
@@ -203,6 +208,8 @@ export const useTacticsBoard = () => {
     occupiedSlots,
     setLastPointer,
     setFieldRect,
+    fieldRectRef,
+    lastPointerRef,
     handleDragStart,
     handleDragEnd,
     moveToField,

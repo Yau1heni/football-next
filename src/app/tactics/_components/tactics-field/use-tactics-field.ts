@@ -1,3 +1,4 @@
+import { RATIO_TO_PERCENT_FACTOR } from '@constants/tactics';
 import type { PointerEvent } from 'react';
 import { useCallback, useEffect, useRef } from 'react';
 
@@ -45,8 +46,8 @@ export const useTacticsField = (params: UseTacticsFieldParams) => {
       onFieldPointerMoveAction(e.clientX, e.clientY);
       const rect = containerRef.current?.getBoundingClientRect();
       if (rect && onDropPositionChangeAction) {
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        const x = ((e.clientX - rect.left) / rect.width) * RATIO_TO_PERCENT_FACTOR;
+        const y = ((e.clientY - rect.top) / rect.height) * RATIO_TO_PERCENT_FACTOR;
         onDropPositionChangeAction({ x, y });
       }
     },
