@@ -18,6 +18,14 @@
     cursor: grabbing;
   }
 
+  &.jerseyDisabled {
+    cursor: default;
+
+    &:active {
+      cursor: default;
+    }
+  }
+
   @include mobile {
     width: 32px;
     height: 40px;

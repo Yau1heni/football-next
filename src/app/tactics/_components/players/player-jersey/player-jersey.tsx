@@ -6,6 +6,7 @@ import { JerseyIcon } from '@components/ui/icons';
 import { Typography } from '@components/ui/typography';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import type { PlayerOnBoard } from '@shared-types/tactics.types';
+import cn from 'classnames';
 import type { FC } from 'react';
 import { useCallback } from 'react';
 
@@ -15,19 +16,22 @@ type PlayerJerseyProps = {
   player: PlayerOnBoard;
   /** При рендере на поле — позиция в %; на скамейке не передавать */
   position?: { x: number; y: number };
+  /** В режиме «Рисовать» перетаскивание отключено */
+  dragDisabled?: boolean;
 };
 
-export const PlayerJersey: FC<PlayerJerseyProps> = ({ player, position }) => {
+export const PlayerJersey: FC<PlayerJerseyProps> = ({ player, position, dragDisabled = false }) => {
   const {
     attributes,
     listeners,
     setNodeRef: setDraggableRef,
   } = useDraggable({
     id: player.id,
+    disabled: dragDisabled,
   });
   const { setNodeRef: setDroppableRef } = useDroppable({
     id: player.id,
-    disabled: position == null,
+    disabled: position == null || dragDisabled,
   });
 
   const setRefs = useCallback(
@@ -51,14 +55,14 @@ export const PlayerJersey: FC<PlayerJerseyProps> = ({ player, position }) => {
   return (
     <div
       ref={setRefs}
-      className={styles.jersey}
+      className={cn(styles.jersey, dragDisabled && styles.jerseyDisabled)}
       style={style}
-      {...listeners}
-      {...attributes}
+      {...(dragDisabled ? {} : listeners)}
+      {...(dragDisabled ? {} : attributes)}
       title={`Игрок ${player.number}`}
     >
       <JerseyIcon className={styles.jerseyShape} />
-      <Typography tag={'span'} className={styles.jerseyNumber}>
+      <Typography color={'light'} tag={'span'} className={styles.jerseyNumber}>
         {player.number}
       </Typography>
     </div>

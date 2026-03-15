@@ -1,5 +1,13 @@
 @use '@styles/variables' as *;
 
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-m;
+  margin-bottom: $space-s;
+}
+
 .controls {
   display: flex;
   align-items: center;
@@ -15,4 +23,15 @@
 .formationDropdown {
   min-width: 140px;
   max-width: 180px;
+}
+
+.modeRow {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
+
+.modeToggle {
+  display: flex;
+  gap: 0;
 }

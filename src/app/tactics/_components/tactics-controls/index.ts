@@ -1,1 +1,1 @@
-export { TacticsControls } from './tactics-controls';
+export { TacticsControls, type TacticsViewMode } from './tactics-controls';

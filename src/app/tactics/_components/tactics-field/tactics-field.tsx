@@ -10,6 +10,7 @@ import type { FC } from 'react';
 
 import { FieldContainer, FieldSvg, FormationSlots } from '../field';
 import { PlayerJersey } from '../players';
+import { type DrawingStroke, FieldDrawingOverlay } from './field-drawing-overlay';
 import styles from './tactics-field.module.scss';
 import { useTacticsField } from './use-tactics-field';
 
@@ -24,6 +25,9 @@ type TacticsFieldProps = {
   onFieldRectChangeAction: (rect: DOMRect | null) => void;
   onDropPositionChangeAction?: (pos: { x: number; y: number } | null) => void;
   highlightedSlotIndex?: number | null;
+  isDrawMode?: boolean;
+  drawingStrokes?: DrawingStroke[];
+  onDrawingStrokeEnd?: (stroke: DrawingStroke) => void;
 };
 
 export const TacticsField: FC<TacticsFieldProps> = (props) => {
@@ -36,9 +40,15 @@ export const TacticsField: FC<TacticsFieldProps> = (props) => {
     onFieldRectChangeAction,
     onDropPositionChangeAction,
     highlightedSlotIndex,
+    isDrawMode = false,
+    drawingStrokes = [],
+    onDrawingStrokeEnd,
   } = props;
 
-  const { setNodeRef } = useDroppable({ id: FIELD_DROPPABLE_ID });
+  const { setNodeRef } = useDroppable({
+    id: FIELD_DROPPABLE_ID,
+    disabled: isDrawMode,
+  });
 
   const { setRef, handlePointerMove } = useTacticsField({
     onFieldPointerMoveAction,
@@ -63,9 +73,19 @@ export const TacticsField: FC<TacticsFieldProps> = (props) => {
           />
         )}
         {onField.map((player) => (
-          <PlayerJersey key={player.id} player={player} position={player.position} />
+          <PlayerJersey
+            key={player.id}
+            player={player}
+            position={player.position}
+            dragDisabled={isDrawMode}
+          />
         ))}
       </div>
+      <FieldDrawingOverlay
+        isDrawMode={isDrawMode}
+        strokes={drawingStrokes}
+        onStrokeEndAction={onDrawingStrokeEnd ?? (() => {})}
+      />
     </FieldContainer>
   );
 };

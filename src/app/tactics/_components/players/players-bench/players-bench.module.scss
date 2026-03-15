@@ -10,4 +10,8 @@
   padding: $space-s;
   background: $color-surface;
   border-radius: $border-radius;
+
+  &.benchDisabled {
+    opacity: 0.6;
+  }
 }

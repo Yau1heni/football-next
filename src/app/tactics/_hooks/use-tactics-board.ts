@@ -199,6 +199,18 @@ export const useTacticsBoard = () => {
     [moveToBench, moveToField, slots, pointerToFieldPercent]
   );
 
+  const onFormationChangeAction = useCallback(
+    (id: string) => {
+      setFormationId(id);
+      moveAllToBench();
+    },
+    [setFormationId, moveAllToBench]
+  );
+
+  const onResetLineupAction = useCallback(() => {
+    moveAllToBench();
+  }, [moveAllToBench]);
+
   return {
     players,
     formationId,
@@ -212,6 +224,8 @@ export const useTacticsBoard = () => {
     lastPointerRef,
     handleDragStart,
     handleDragEnd,
+    onFormationChangeAction,
+    onResetLineupAction,
     moveToField,
     moveToBench,
   };
