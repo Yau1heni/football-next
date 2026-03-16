@@ -1,0 +1,96 @@
+@use '@styles/variables' as *;
+
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-m $space-xxl;
+  margin-bottom: $space-s;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  flex-wrap: wrap;
+}
+
+.label {
+  font-weight: 500;
+  color: $color-text;
+  white-space: nowrap;
+}
+
+.formationDropdown {
+  min-width: 140px;
+  max-width: 180px;
+}
+
+/* Кастомизация радио «Режим»: обводка и выделение выбранного */
+.modeGroup [data-part='option'] {
+  padding: $space-xxs $space-xs;
+  border-radius: $border-radius;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.modeGroup [data-part='option']:hover {
+  background-color: $color-grey-overlay;
+}
+
+.modeGroup [data-part='option']:has(input:checked) {
+  background-color: $color-primary-overlay;
+  box-shadow: 0 0 0 1px $color-primary;
+}
+
+.modeGroup [data-part='option']:has(input:checked) span {
+  color: $color-primary;
+  font-weight: 600;
+}
+
+.colorGroup {
+  padding: 2px;
+  gap: $space-xs;
+}
+
+.colorSwatch {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: $radius-circle;
+  border: 2px solid $color-grey;
+  box-sizing: border-box;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.colorGroup label:has(input:not(:disabled)):hover .colorSwatch {
+  border-color: $color-primary-hover;
+}
+
+.colorGroup label:has(input:checked) .colorSwatch {
+  border-color: $color-primary;
+  border-width: 2px;
+  box-shadow: 0 0 0 2px $color-primary;
+}
+
+.saveNameInput {
+  min-width: 160px;
+  max-width: 220px;
+}
+
+@media (max-width: 600px) {
+  .wrap {
+    gap: $space-s $space-m;
+  }
+
+  .section {
+    width: 100%;
+  }
+
+  .section:first-child {
+    margin-right: auto;
+  }
+}

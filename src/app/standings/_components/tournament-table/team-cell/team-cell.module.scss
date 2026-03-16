@@ -1,0 +1,21 @@
+@use '@styles/variables.scss' as *;
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: $space-xxs;
+}
+
+.teamCrest {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.teamName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}

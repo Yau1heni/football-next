@@ -1,0 +1,68 @@
+@use '@styles/mixins.scss' as *;
+@use '@styles/variables.scss' as *;
+
+.wrapper {
+  overflow-x: auto;
+  border-radius: $border-radius;
+
+  @include custom-scrollbar;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead tr {
+    background-color: $color-grey-overlay;
+  }
+}
+
+.th {
+  padding: $space-xs;
+  font-size: $font-size-xs;
+  color: $color-secondary;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.td {
+  padding: $space-xs;
+  font-size: $font-size-xs;
+  white-space: nowrap;
+}
+
+.tr {
+  border-bottom: 1px solid $color-grey-overlay;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.footer {
+  padding: $space-xs;
+  font-size: $font-size-xs;
+  color: $color-secondary;
+  background-color: $color-grey-overlay;
+  border-top: 1px solid $color-grey;
+}
+
+.hideMobile {
+  @include mobile {
+    display: none;
+  }
+}
+
+.hideTablet {
+  @include tablet {
+    display: none;
+  }
+}

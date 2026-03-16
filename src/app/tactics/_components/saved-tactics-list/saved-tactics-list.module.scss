@@ -1,0 +1,86 @@
+@use '@styles/mixins' as *;
+@use '@styles/variables' as *;
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $space-s;
+
+  @include mobile {
+    gap: $space-xs;
+  }
+}
+
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-s $space-m;
+  padding: $space-s $space-m;
+  background: $color-grey-overlay;
+  border-radius: $border-radius;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: $space-s;
+    padding: $space-s $space-xs;
+  }
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: $space-xs $space-m;
+  flex: 1;
+  min-width: 0;
+
+  @include mobile {
+    gap: $space-xxs $space-s;
+  }
+}
+
+.name {
+  font-weight: 600;
+
+  @include mobile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  flex-shrink: 0;
+
+  @include mobile {
+    justify-content: flex-end;
+    gap: $space-s;
+    padding-top: $space-xxs;
+    border-top: 1px solid $color-grey;
+  }
+}
+
+.applyButton {
+  flex-shrink: 0;
+
+  @include mobile {
+    min-height: 44px;
+  }
+}
+
+.deleteButton {
+  flex-shrink: 0;
+
+  @include mobile {
+    min-height: 44px;
+  }
+}
