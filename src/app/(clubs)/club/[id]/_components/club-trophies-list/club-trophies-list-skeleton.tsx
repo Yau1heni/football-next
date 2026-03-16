@@ -5,21 +5,19 @@ import { Skeleton } from '@components/ui/skeleton';
 import type { FC } from 'react';
 
 import styles from './club-trophies-list.module.scss';
+import trophyItemStyles from './club-trophy-item/club-trophy-item.module.scss';
 
 const SKELETON_ITEMS_COUNT = 4;
 
 export const ClubTrophiesListSkeleton: FC = () => (
   <ContentContainer title={'Трофеи'}>
-    <div className={styles.clubTrophiesList}>
+    <ul className={styles.clubTrophiesList}>
       {Array.from({ length: SKELETON_ITEMS_COUNT }, (_, i) => (
-        <Skeleton
-          key={i}
-          variant={'rectangular'}
-          width={160}
-          height={120}
-          className={styles.trophyBlock}
-        />
+        <li key={i} className={trophyItemStyles.clubTrophyItem}>
+          <Skeleton variant={'text'} width={'70%'} />
+          <Skeleton variant={'rectangular'} width={72} height={28} />
+        </li>
       ))}
-    </div>
+    </ul>
   </ContentContainer>
 );

@@ -22,6 +22,12 @@ export const ClubContentSkeleton: FC = () => (
         <Skeleton variant={'text'} width={'30%'} />
       </ContentContainer>
     </header>
+    <Skeleton
+      variant={'rectangular'}
+      width={200}
+      height={44}
+      className={styles.favoriteButton}
+    />
     <ClubTrophiesListSkeleton />
     <ContentContainer title={'История'}>
       <Skeleton variant={'text'} />
