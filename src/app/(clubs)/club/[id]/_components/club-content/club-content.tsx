@@ -10,6 +10,7 @@ import type { FC } from 'react';
 
 import { ClubDescription } from '../club-description/club-description';
 import { ClubHistory } from '../club-history/club-history';
+import { ClubNewsSection } from '../club-news-section';
 import { ClubTrophiesList } from '../club-trophies-list/club-trophies-list';
 import styles from './club-content.module.scss';
 
@@ -32,7 +33,7 @@ export const ClubContent: FC<ClubContentProps> = ({ clubId }) => {
     <div className={styles.clubContent}>
       <PageTitle title={club.name ?? 'Клуб'} teamColors={club.colors} showBack />
       <div className={styles.header}>
-        <ClubLogo logo={club.logo} isFavorite={isFavorite} />
+        <ClubLogo logo={club.logo} isFavorite={isFavorite} loading="eager" />
         <ClubDescription
           ground={club.ground}
           country={club.country}
@@ -56,6 +57,7 @@ export const ClubContent: FC<ClubContentProps> = ({ clubId }) => {
       {club.trophies.length > 0 && <ClubTrophiesList trophies={club.trophies} />}
 
       <ClubHistory text={club.history} />
+      <ClubNewsSection clubName={club.name} />
     </div>
   );
 };

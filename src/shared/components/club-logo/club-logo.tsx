@@ -13,10 +13,11 @@ type ClubLogoProps = {
   isFavorite?: boolean;
   size?: 's' | 'm';
   className?: string;
+  loading?: 'eager' | 'lazy';
 };
 
 export const ClubLogo: FC<ClubLogoProps> = (props) => {
-  const { logo, isFavorite = false, size = 'm', className } = props;
+  const { logo, isFavorite = false, size = 'm', className, loading = 'lazy' } = props;
 
   return (
     <div
@@ -33,6 +34,7 @@ export const ClubLogo: FC<ClubLogoProps> = (props) => {
         width={size === 's' ? CLUB_LOGO_SIZE_S : CLUB_LOGO_SIZE_M}
         height={size === 's' ? CLUB_LOGO_SIZE_S : CLUB_LOGO_SIZE_M}
         sizes={size === 's' ? '120px' : '280px'}
+        loading={loading}
       />
       {isFavorite && (
         <span className={styles.favoriteBadge}>

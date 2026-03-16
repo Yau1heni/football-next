@@ -41,6 +41,7 @@ const VIEWS_PATH = ARTICLES_COLLECTIONS.SUBCOLLECTIONS.VIEWS;
 
 export const ARTICLES_PAGE_SIZE = 5;
 export const COMMENTS_PAGE_SIZE = 10;
+const NEWS_LIMIT = 3;
 
 export type GetCommentsResult = {
   comments: ArticleComment[];
@@ -91,6 +92,26 @@ export const articlesApi = {
     const hasMore = snapshot.docs.length === pageSize;
 
     return { articles, lastDocId, hasMore };
+  },
+
+  // array-contains is case-sensitive — tags must be stored with the same casing as club.name
+  getByTags: async (tag: string, limitCount = NEWS_LIMIT): Promise<Article[]> => {
+    if (!tag || limitCount <= 0) {
+      return [];
+    }
+
+    const articlesRef = collection(db, ARTICLES_PATH).withConverter(articlesFirestoreConverter);
+
+    const q = query(
+      articlesRef,
+      where(ARTICLES_COLLECTIONS.FIELD_PATH.TAGS, 'array-contains', tag),
+      orderBy(ARTICLES_COLLECTIONS.FIELD_PATH.TIMESTAMP, SORT_DIRECTIONS.DESC),
+      limit(limitCount)
+    );
+
+    const snapshot = await getDocs(q);
+
+    return snapshot.docs.map((d) => mapArticleFromFirestore({ ...d.data(), id: d.id }));
   },
 
   getById: async (articleId: string): Promise<Article | null> => {

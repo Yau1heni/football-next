@@ -1,0 +1,17 @@
+@use '@styles/variables' as *;
+
+.bench {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: $space-s;
+  background: $color-surface;
+  border-radius: $border-radius;
+
+  &.benchDisabled {
+    opacity: 0.6;
+  }
+}

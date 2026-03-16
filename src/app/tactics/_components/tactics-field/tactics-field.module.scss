@@ -1,0 +1,6 @@
+.droppableArea {
+  position: absolute;
+  inset: 0;
+  /* Тач не уходит в скролл страницы — перетаскивание на мобильном работает */
+  touch-action: none;
+}

@@ -28,8 +28,8 @@ pre {
   margin: 0;
 }
 
-input,
-input:focus {
+input:not([type='radio']):not([type='checkbox']),
+input:not([type='radio']):not([type='checkbox']):focus {
   outline: none;
   appearance: none;
 }

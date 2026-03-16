@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       new URL('https://res.cloudinary.com/dyendeiwv/image/upload/**'),
       new URL('https://crests.football-data.org/**'),
+      // апи возвращает 1 изображение с wikipedia
+      new URL('https://upload.wikimedia.org/wikipedia/en/0/05/G_D_Chaves.png'),
     ],
   },
 };

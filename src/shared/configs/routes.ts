@@ -23,4 +23,12 @@ export const routes = {
     mask: '/articles/[id]',
     create: (id: string) => `/articles/${id}`,
   },
+  standings: {
+    mask: '/standings',
+    create: () => `/standings`,
+  },
+  tactics: {
+    mask: '/tactics',
+    create: () => '/tactics',
+  },
 } as const;
