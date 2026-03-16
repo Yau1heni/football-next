@@ -1,8 +1,15 @@
 import { routes } from '@configs/routes';
 
-export const navigationConfig = [
-  { title: 'Клубы', to: routes.main.mask },
-  { title: 'Статьи', to: routes.articles.mask },
-  { title: 'Турнирная таблица', to: routes.standings.mask },
-  { title: 'Тактика', to: routes.tactics.mask },
-] as const;
+type NavigationItem = {
+  title: string;
+  to: string;
+  /** Признак защищённого маршрута (требует авторизации) */
+  requiresAuth?: boolean;
+};
+
+export const navigationConfig: NavigationItem[] = [
+  { title: 'Клубы', to: routes.main.mask, requiresAuth: true },
+  { title: 'Статьи', to: routes.articles.mask, requiresAuth: true },
+  { title: 'Турнирная таблица', to: routes.standings.mask, requiresAuth: true },
+  { title: 'Тактика', to: routes.tactics.mask, requiresAuth: true },
+];
