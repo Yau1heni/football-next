@@ -1,9 +1,7 @@
+import { ArticleCard, ArticleCardSkeleton } from '@components/article-card';
 import type { Article } from '@shared-types/articles.types';
 import type { VirtualItem } from '@tanstack/react-virtual';
 import type { FC } from 'react';
-
-import { ArticleCard } from '../article-card/article-card';
-import { ArticleCardSkeleton } from '../article-card/article-card-skeleton';
 
 type VirtualArticleItemProps = {
   virtualRow: VirtualItem;

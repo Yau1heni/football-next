@@ -30,6 +30,7 @@ export const ARTICLES_COLLECTIONS = {
   FIELD_PATH: {
     TIMESTAMP: 'timestamp',
     PARENT_COMMENT_ID: 'parentCommentId',
+    TAGS: 'tags',
   },
   SUBCOLLECTIONS: {
     REACTIONS: 'reactions',

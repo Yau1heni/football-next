@@ -62,6 +62,7 @@ export const ArticleDetail: FC<ArticleDetailProps> = ({ article, userId }) => {
             alt={article.title}
             fill
             sizes={'(max-width: 720px) 100vw, 720px'}
+            loading="eager"
           />
         </div>
 

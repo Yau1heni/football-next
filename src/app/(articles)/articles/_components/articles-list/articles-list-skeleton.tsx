@@ -1,6 +1,5 @@
+import { ArticleCardSkeleton } from '@components/article-card';
 import type { FC } from 'react';
-
-import { ArticleCardSkeleton } from './article-card/article-card-skeleton';
 
 const SKELETON_COUNT = 5;
 

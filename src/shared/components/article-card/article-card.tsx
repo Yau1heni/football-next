@@ -1,5 +1,3 @@
-'use client';
-
 import { Typography } from '@components/ui/typography';
 import { routes } from '@configs/routes';
 import {
@@ -20,10 +18,10 @@ import styles from './article-card.module.scss';
 
 type ArticleCardProps = {
   article: Article;
-  index: number;
+  index?: number;
 };
 
-export const ArticleCard: FC<ArticleCardProps> = memo(({ article, index }) => (
+export const ArticleCard: FC<ArticleCardProps> = memo(({ article, index = 0 }) => (
   <Link href={routes.article.create(article.id)} className={styles.link}>
     <article className={styles.articleCard}>
       <div className={styles.image}>
